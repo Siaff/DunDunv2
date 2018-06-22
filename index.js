@@ -102,7 +102,7 @@ bot.on('message', async message => {
         editMsg.edit(`🏓 Pong! (Roundtrip: ${editMsg.createdTimestamp - message.createdTimestamp}ms | Heatbeat ${~~bot.ping}ms)`);
    }
 
-   // Uptime Command to check how long the bot hasa been up!
+   // Uptime Command to check how long the bot hasa been up! Change
     if (cmd == `${prefix}uptime`) {
         let totalSeconds = (bot.uptime / 1000);
         let hours = Math.floor(totalSeconds / 3600);
