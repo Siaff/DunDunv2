@@ -50,13 +50,15 @@ bot.on('ready', () => {
 });
 // For when someone sends a message
 bot.on('message', async message => {
+
     // Regular things so it won't respond to itself nor work in DMs.
     if (message.author.bot) return;
 
     // Defining msg and args
-    let messageArray = message.content.split(' ');
-    let cmd = messageArray[0];
-    let args = messageArray.slice(1);
+    let msgArr = message.content.split(' ');
+    let cmd = msgArr[0];
+    let args = msgArr.slice(1);
+
     // Here comes the commands!
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // Metar Command
