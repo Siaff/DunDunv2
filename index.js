@@ -122,7 +122,6 @@ bot.on('message', async message => {
         let minutes = Math.floor(totalSeconds / 60);
         let seconds = totalSeconds % 60;
         let days = Math.floor(totalSeconds / 86400);
-        // let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${~~seconds} seconds`;
         let uptimeEmbed = new Discord.RichEmbed()
         .setTitle('Dun-Duns Uptime')
         .setDescription(`\`\`\`${days} Days, ${hours} hrs, ${minutes} mins, ${~~seconds} secs.\`\`\``)
