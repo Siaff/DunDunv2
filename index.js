@@ -118,9 +118,13 @@ bot.on('message', async message => {
         let minutes = Math.floor(totalSeconds / 60);
         let seconds = totalSeconds % 60;
         let days = Math.floor(totalSeconds / 86400);
-        let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${~~seconds} seconds`;
-        console.log(`Uptime ${uptime}`);
-        message.channel.send(uptime);
+        // let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${~~seconds} seconds`;
+        let uptimeEmbed = new Discord.RichEmbed()
+        .setTitle('Dun-Duns Uptime')
+        .setDescription(`\`\`\`${days} Days, ${hours} hrs, ${minutes} mins, ${~~seconds} secs.\`\`\``)
+        .setFooter('Wowie, maybe this is the longest time ol\' Dun-Dun has been up?!?!?!!');
+        console.log(`Uptime: ${hours}, ${minutes}, ${~~seconds}`);
+        message.channel.send(uptimeEmbed);
     }
     
     // Info Command
