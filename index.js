@@ -62,6 +62,7 @@ bot.on('message', async message => {
     // Here comes the commands!
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // Metar Command
+    // https://avwx.rest/api/metar/EKCH?options=info,translate,speech
     if(cmd == `${prefix}metar`) {
         console.log(`METAR for ${args}`);
         let reqURL = `https://avwx.rest/api/metar/${args}?options=info,translate,speech`;
@@ -89,6 +90,21 @@ bot.on('message', async message => {
         message.channel.send(METAREmbed);
     }
 
+    // TAF Command [WIP]
+    // https://avwx.rest/api/taf/EKCH?options=info,translate,speech
+    if (cmd == `${prefix}taf`) {
+        console.log(`TAF for ${args}`);
+        let tafReqURL = `https://avwx.rest/api/taf/${args}?options=info,translate,speech`;
+        message.channel.startTyping(true);
+        let tafResponse = await fetch(tafReqURL);
+        let tafJson = fixKeys(await tafResponse.json());
+        let optText = (truthy, ifTrue, ifFalse = "") => truthy ? ifTrue : ifFalse;
+        message.channel.stopTyping(true);
+        let TAFEmbed = new Discord.RichEmbed()
+            .addTitle(``)
+    }
+
+
     // Purge Command up to a 100.
     if(cmd == `${prefix}purge`) {
         // Checks server ids.
@@ -100,7 +116,7 @@ bot.on('message', async message => {
         if (isNaN(args)) return message.channel.send('**Please supply a valid amount of messages to purge**');
         if (args > 100) return message.channel.send('**Please supply a number less than 100**');
         // Logging
-        console.log(`Purging ${args} messages`);
+        console.log(`Purged ${args} messages`);
         let argz = Number(args);
 		message.channel.bulkDelete(argz + 1)
             .then(messages => message.channel.send(`**Successfully deleted \`${messages.size - 1}/${args[0]}\` messages**`)
@@ -163,4 +179,4 @@ bot.on('message', async message => {
 });
 
 // Login key for Dun Dunv2
-// bot.login('Token Removed');
+bot.login('Token taken away.');
