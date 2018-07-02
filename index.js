@@ -5,7 +5,7 @@ const moment = require('moment');
 const bot = new Discord.Client();
 
 // Prefix for .toLowerCase();.
-const prefix = '!';
+const prefix = '+';
 
 // By using moment we get the Zulu time.
 let time = moment.utc();
@@ -46,7 +46,7 @@ bot.on('ready', () => {
     console.log('Connection Time                                   ' + timeform);
     console.log('– - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
     // Sets activity
-    bot.user.setActivity('PornHub', {type: 'WATCHING'});
+    bot.user.setActivity('PornHub || +info', {type: 'WATCHING'});
 });
 // For when someone sends a message
 bot.on('message', async message => {
@@ -61,6 +61,7 @@ bot.on('message', async message => {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // Metar Command
     if(cmd == `${prefix}metar`) {
+        console.log(`METAR for ${args}`);
         let reqURL = `https://avwx.rest/api/metar/${args}?options=info,translate,speech`;
         message.channel.startTyping(true);
         let response = await fetch(reqURL);
@@ -72,22 +73,23 @@ bot.on('message', async message => {
             .setColor([93, 233, 235])
             .addField('Readable Report:', `${json.Speech}`, true)
             .addField('RAW Report:',`${json.RawReport}`, true)
+            .addBlankField(true)
             .addField('Flight Rule:', `${json.FlightRules}`, true)
             .addField('Time of Report', `${json.Meta.Timestamp}`, true)
-            .addBlankField(true)
             .addField('Wind', `${json.WindDirection} at ${json.WindSpeed} ${json.Units.WindSpeed}`, true)
             .addField('Visibility', `${json.Translations.Visibility}`, true)
             .addField('Clouds:', `${json.Translations.Clouds}`, true)
             .addField('Temperature:', `${json.Translations.Temperature}`, true)
             .addField('Dewpoint:', `${json.Translations.Dewpoint}`, true)
             .addField('QNH:', `${json.Translations.Altimeter}`, true)
-            .addField('Remarks:', `${json.Remarks}`, true)
+            .addField('Remarks:', `${json.Remarks}` || 'NOSIG', true)
             .setFooter(`Requested at ${timeform2}`);
         message.channel.send(METAREmbed);
     }
 
     // Purge Command up to a 100.
     if(cmd == `${prefix}purge`) {
+        // Check for server (Idiots Guide thing)
         if (isNaN(args)) return message.channel.send('**Please supply a valid amount of messages to purge**');
         if (args > 100) return message.channel.send('**Please supply a number less than 100**');
         let argz = Number(args);
@@ -98,8 +100,8 @@ bot.on('message', async message => {
 
     // Ping Command to check connection.
     if (cmd == `${prefix}ping`) {
-        const editMsg = await message.channel.send('🏓 Ping???');
-        editMsg.edit(`🏓 Pong! (Roundtrip: ${editMsg.createdTimestamp - message.createdTimestamp}ms | Heatbeat ${~~bot.ping}ms)`);
+        const editMsg = await message.channel.send('Why would you ping me?');
+        editMsg.edit(`Pong! Roundtrip: ${editMsg.createdTimestamp - message.createdTimestamp}ms, heatbeat ${~~bot.ping}ms`);
    }
 
    // Uptime Command to check how long the bot hasa been up!
@@ -112,6 +114,35 @@ bot.on('message', async message => {
         let days = Math.floor(totalSeconds / 86400);
         let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${~~seconds} seconds`;
         message.channel.send(uptime);
+    }
+    
+    // Info Command
+    if (cmd == `${prefix}info`) {
+        let infoEmbed = new Discord.RichEmbed()
+        .setTitle('Dun-Dun Information.')
+        .setColor([55, 213, 252])
+        .setDescription('Dun-Dun is a small Aviation bot that is mostly focused around getting METAR. (METAR is weather for airports)')
+        .addField('Prefix:', '+', true)
+        .addField('Getting started', '+help', true)
+        .setFooter('Bot made by Siaff#3293');
+        message.channel.send(infoEmbed);
+    }
+
+    // Help Command.
+    if (cmd == `${prefix}help`) {
+        let helpEmbed = new Discord.RichEmbed()
+        .setTitle('Dun-Dun to the rescue!')
+        .setColor([43, 43, 255])
+        .addField('+help', 'This command...', true)
+        .addBlankField(true)
+        .addField('+info', 'Gives some information about the bot.', true)
+        .addField('+metar [ICAO]', 'Example \'+metar EKCH\'. Gives you METAR of any airport.', true)
+        .addField('+uptime', 'Gives you the uptime of the bot.', true)
+        .addBlankField(true)
+        .addField('+ping', 'Pings the bot and gives you the bots ping.', true)
+        .addField('+purge', 'Purges messages if it has perms to do it.', true)
+        .setFooter(`Requested by ${message.author.tag}`);
+        message.channel.send(helpEmbed);
     }
 });
 
