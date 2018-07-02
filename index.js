@@ -91,8 +91,12 @@ bot.on('message', async message => {
 
     // Purge Command up to a 100.
     if(cmd == `${prefix}purge`) {
-        // Check for server (Idiots Guide thing)
+        // Checks server ids.
+        // Idiots Guide showcase.
         if (message.guild.id == '463226021882363914') return console.log('Someone tried to purge in Idiots Bot Server');
+        // Discord Bot List server. 
+        if (message.guild.id == '264445053596991498') return console.log('Someone tried to purge Discord Bot Lists Server.');
+
         if (isNaN(args)) return message.channel.send('**Please supply a valid amount of messages to purge**');
         if (args > 100) return message.channel.send('**Please supply a number less than 100**');
         // Logging
@@ -160,4 +164,5 @@ bot.on('message', async message => {
 });
 
 // Login key for Dun Dunv2
+
 bot.login('Token Removed');
