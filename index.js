@@ -46,13 +46,14 @@ bot.on('ready', () => {
     console.log('Connection Time                                   ' + timeform);
     console.log('– - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
     // Sets activity
-    bot.user.setActivity('PornHub || +info', {type: 'WATCHING'});
+    bot.user.setActivity('the weather || +info', {type: 'WATCHING'});
 });
 // For when someone sends a message
 bot.on('message', async message => {
 
     // Regular things so it won't respond to itself nor work in DMs.
     if (message.author.bot) return;
+    if (meesage)
 
     // Defining msg and args
     let msgArr = message.content.split(' ');
