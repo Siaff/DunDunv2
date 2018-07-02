@@ -75,8 +75,8 @@ bot.on('message', async message => {
             .setColor([93, 233, 235])
             .addField('Readable Report:', `${json.Speech}`, true)
             .addField('RAW Report:',`${json.RawReport}`, true)
-            .addBlankField(true)
             .addField('Flight Rule:', `${json.FlightRules}`, true)
+            .addBlankField(true)
             .addField('Time of Report', `${json.Meta.Timestamp}`, true)
             .addField('Wind', `${json.WindDirection} at ${json.WindSpeed} ${json.Units.WindSpeed}`, true)
             .addField('Visibility', `${json.Translations.Visibility}`, true)
@@ -150,4 +150,4 @@ bot.on('message', async message => {
 });
 
 // Login key for Dun Dunv2
-bot.login('NDM2NDA2MTA2MDEzODI3MDcy.DgLuxw.eqknDKJR0sBRRaFF1e1ZYZXs-_k');
+bot.login('Token Removed');
