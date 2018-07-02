@@ -52,7 +52,7 @@ bot.on('ready', () => {
 bot.on('message', async message => {
     // Regular things so it won't respond to itself nor work in DMs.
     if (message.author.bot) return;
-     
+
     // Defining msg and args
     let messageArray = message.content.split(' ');
     let cmd = messageArray[0];
