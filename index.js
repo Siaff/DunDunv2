@@ -151,4 +151,4 @@ bot.on('message', async message => {
 });
 
 // Login key for Dun Dunv2
-bot.login('NDM2NDA2MTA2MDEzODI3MDcy.DgLuxw.eqknDKJR0sBRRaFF1e1ZYZXs-_k');
+bot.login('Token Removed.');
