@@ -53,7 +53,6 @@ bot.on('message', async message => {
 
     // Regular things so it won't respond to itself nor work in DMs.
     if (message.author.bot) return;
-    if (meesage)
 
     // Defining msg and args
     let msgArr = message.content.split(' ');
@@ -151,4 +150,4 @@ bot.on('message', async message => {
 });
 
 // Login key for Dun Dunv2
-bot.login('Token Removed.');
+bot.login('NDM2NDA2MTA2MDEzODI3MDcy.DgLuxw.eqknDKJR0sBRRaFF1e1ZYZXs-_k');
