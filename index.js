@@ -90,6 +90,7 @@ bot.on('message', async message => {
     // Purge Command up to a 100.
     if(cmd == `${prefix}purge`) {
         // Check for server (Idiots Guide thing)
+        if (message.guild.id == '463226021882363914') return console.log('Someone tried to purge in Idiots Bot Server');
         if (isNaN(args)) return message.channel.send('**Please supply a valid amount of messages to purge**');
         if (args > 100) return message.channel.send('**Please supply a number less than 100**');
         let argz = Number(args);
