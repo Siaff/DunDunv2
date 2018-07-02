@@ -95,6 +95,8 @@ bot.on('message', async message => {
         if (message.guild.id == '463226021882363914') return console.log('Someone tried to purge in Idiots Bot Server');
         if (isNaN(args)) return message.channel.send('**Please supply a valid amount of messages to purge**');
         if (args > 100) return message.channel.send('**Please supply a number less than 100**');
+        // Logging
+        console.log(`Purging ${args} messages`);
         let argz = Number(args);
 		message.channel.bulkDelete(argz + 1)
             .then(messages => message.channel.send(`**Successfully deleted \`${messages.size - 1}/${args[0]}\` messages**`)
@@ -103,6 +105,7 @@ bot.on('message', async message => {
 
     // Ping Command to check connection.
     if (cmd == `${prefix}ping`) {
+        console.log('Pong!');
         const editMsg = await message.channel.send('Why would you ping me?');
         editMsg.edit(`Pong! Roundtrip: ${editMsg.createdTimestamp - message.createdTimestamp}ms, heatbeat ${~~bot.ping}ms`);
    }
@@ -116,11 +119,13 @@ bot.on('message', async message => {
         let seconds = totalSeconds % 60;
         let days = Math.floor(totalSeconds / 86400);
         let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${~~seconds} seconds`;
+        console.log(`Uptime ${uptime}`);
         message.channel.send(uptime);
     }
     
     // Info Command
     if (cmd == `${prefix}info`) {
+        console.log('Info');
         let infoEmbed = new Discord.RichEmbed()
         .setTitle('Dun-Dun Information.')
         .setColor([55, 213, 252])
@@ -133,6 +138,7 @@ bot.on('message', async message => {
 
     // Help Command.
     if (cmd == `${prefix}help`) {
+        console.log('Helping');
         let helpEmbed = new Discord.RichEmbed()
         .setTitle('Dun-Dun to the rescue!')
         .setColor([43, 43, 255])
