@@ -1,6 +1,7 @@
 # Dun-Dunv2
 Dun-Dunv2 is a small Aviation Bot that is focused on getting METAR. The bot does also have some features like to delete messages.
-If you want anything else to be added to Dun-Dunv2 just contact Siaff#3293 or join the support server: https://discord.gg/wf64e98
+If you want anything else to be added to Dun-Dunv2 just contact <b>Siaff#3293</b> 
+or join the <a href='https://discord.gg/wf64e98'>support server by clicking here</a>
 
 Dun-Dunv2 even decodes the METAR for you!
 
