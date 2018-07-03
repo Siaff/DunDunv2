@@ -121,25 +121,6 @@ bot.on('message', async message => {
         message.channel.send(`${json.Info.ICAO}'s full name is \`\`${json.Info.Name}\`\``);
     }
 
-
-    // Purge Command up to a 100.
-    if(cmd == `${prefix}purge`) {
-        // Checks server ids.
-        // Idiots Guide showcase.
-        if (message.guild.id == '463226021882363914') return console.log('Someone tried to purge in Idiots Bot Server');
-        // Discord Bot List server. 
-        if (message.guild.id == '264445053596991498') return console.log('Someone tried to purge Discord Bot Lists Server.');
-
-        if (isNaN(args)) return message.channel.send('**Please supply a valid amount of messages to purge**');
-        if (args > 100) return message.channel.send('**Please supply a number less than 100**');
-        // Logging
-        console.log(`Purged ${args} messages`);
-        let argz = Number(args);
-		message.channel.bulkDelete(argz + 1)
-            .then(messages => message.channel.send(`**Successfully deleted \`${messages.size - 1}/${args[0]}\` messages**`)
-            .then(message => message.delete(10000)));
-    }
-
     // Ping Command to check connection.
     if (cmd == `${prefix}ping`) {
         console.log('Pong!');
@@ -190,7 +171,6 @@ bot.on('message', async message => {
         .addField('+uptime', 'Gives you the uptime of the bot.', true)
         .addBlankField(true)
         .addField('+ping', 'Pings the bot and gives you the bots ping.', true)
-        .addField('+purge', 'Purges messages if it has perms to do it.', true)
         .addField('+icao', 'If you supply an ICAO after the command it will give the Airports name.', true)
         .setFooter(`Requested by ${message.author.tag}`);
         message.channel.send(helpEmbed);
