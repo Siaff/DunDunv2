@@ -175,7 +175,15 @@ bot.on('message', async message => {
         .setFooter(`Requested by ${message.author.tag}`);
         message.channel.send(helpEmbed);
     }
+    if (cmd == `${prefix}purge`)
+        if (message.guild.id != '380414605744275456') return message.channel.send('*Shhhh this command only works in some servers.*');
+        if (isNaN(args[0])) return msg.send('**Please supply a valid amount of messages to purge**');
+		if (args[0] > 100) return msg.send('**Please supply a number less than 100**');
+		msg.channel.bulkDelete(args[0] + 1)
+			.then(messages => msg.channel.send(`**Successfully deleted \`${messages.size - 1}/${args[0]}\` messages**`).then(msg => msg.delete({
+				timeout: 10000
+			})));
 });
 
 // Login key for Dun Dunv2
-bot.login('Token Removed')
+bot.login('NDM2NDA2MTA2MDEzODI3MDcy.DhwH3g.gcbF44bWd0n55cg6oiFSac6OoIY');
