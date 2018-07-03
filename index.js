@@ -168,6 +168,7 @@ bot.on('message', async message => {
         .setDescription('Dun-Dun is a small Aviation bot that is mostly focused around weather.')
         .addField('Prefix:', '+', true)
         .addField('Getting started', '+help', true)
+        .addField('Join the support server!', 'https://discord.gg/wf64e98', true)
         .setFooter('Bot made by Siaff#3293');
         message.channel.send(infoEmbed);
     }
@@ -193,4 +194,4 @@ bot.on('message', async message => {
 });
 
 // Login key for Dun Dunv2
-bot.login('TOKEN REMOVED');
+bot.login('NDM2NDA2MTA2MDEzODI3MDcy.DhwH3g.gcbF44bWd0n55cg6oiFSac6OoIY');
