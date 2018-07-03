@@ -23,7 +23,6 @@ Dun-Dunv2's Prefix js <b>+</b>
 + taf       ––– Usage "+taf EKCH". If you supply the correct ICAO for your airport it will get information that you requested.
 + info    ––– Gives some basic information about the Bot.
 + help    ––– Shows a command like this with all the commands and also some information about them.
-+ purge   ––– Usage: "+purge (Number of messages that you want to remove)". This command takes away messages from channels.
 + ping	  ––– Gives you the bots ping.
 + uptime  ––– Gives you how long the bot has been up.
 + icao    ––– Usage: "+icao EKCH". If you supply an ICAO for a airport it will give you the full name of the airport.
