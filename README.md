@@ -9,7 +9,7 @@ Dun-Dunv2 even decodes the METAR & TAF for you!
 
 
 
-<img src='https://i.imgur.com/ch8kSjv.png'></img>
+<img src='https://i.imgur.com/4oUwFpt.png'></img>
 
 
 
@@ -17,22 +17,22 @@ Dun-Dunv2 even decodes the METAR & TAF for you!
 
 But will still give you the raw report.
 
-Dun-Dunv2's Prefix js <b>+</b>
 # Commands
 + metar   ––– Usage: "+metar EKCH". If you supply the correct ICAO for your airport it will get information that you requested.
 + taf       ––– Usage "+taf EKCH". If you supply the correct ICAO for your airport it will get information that you requested.
++ icao    ––– Usage: "+icao EKCH". If you supply an ICAO for a airport it will give you the full name of the airport.
 + info    ––– Gives some basic information about the Bot.
 + help    ––– Shows a command like this with all the commands and also some information about them.
 + ping	  ––– Gives you the bots ping.
 + uptime  ––– Gives you how long the bot has been up.
-+ icao    ––– Usage: "+icao EKCH". If you supply an ICAO for a airport it will give you the full name of the airport.
 
 
-METAR is weather for airports! METAR stands for Meteorological Terminal Aviation Routine. METAR gives you information abou the airports weather.
+METAR is weather for airports! METAR stands for Meteorological Terminal Aviation Routine. METAR gives you information about the airports weather.
+TAF is a forecast for airports! TAF stands for Terminal Aerodrome Forecast. TAF gives you a forecast about the weather including predicted winds.
 
 # WIP
 - NOTAM (Notice To Airmen)
-- Weight.
+- Weight translation.
 - Route planning wihtin Europe
 - Global Route planning
 - Aviation Quizes.
