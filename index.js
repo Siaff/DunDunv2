@@ -74,7 +74,8 @@ bot.on('message', async message => {
     // https://avwx.rest/api/metar/EKCH?options=info,translate,speech
     if(cmd == `${prefix}metar`) {
         console.log(`METAR for ${args}`);
-        let reqURL = `https://avwx.rest/api/metar/${args}?options=info,translate,speech`;
+        let argz = args.map(e=>e.toUpperCase());
+        let reqURL = `https://avwx.rest/api/metar/${argz}?options=info,translate,speech`;
         message.channel.startTyping(true);
         let response = await fetch(reqURL);
         let json = fixKeys(await response.json());
