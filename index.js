@@ -8,10 +8,10 @@ const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNjQwNjEwNj
 // Server counts for discordbots website.
 dbl.on('posted', () => {
     console.log('Server count posted!');
-  })
-  dbl.on('error', e => {
+});
+dbl.on('error', e => {
    console.log(`Oops! ${e}`);
-  })
+});
 
 // Prefix
 const prefix = '+';
@@ -59,6 +59,12 @@ bot.on('ready', () => {
 });
 
 bot.on('guildCreate', guild => {
+    // message.guild.channels.get('<CHANNEL ID>').createInvite().then(invite =>
+    //     message.channel.send(invite.url)
+    // );
+    // guild.channels.systemChannel.createInvite().then(invite => 
+    //     siaff.send(invite.url)
+    // );
     let helloEmbed = new Discord.RichEmbed()
     .setTitle('Dun-Dunv2')
     .setColor([61, 82, 200])
@@ -67,8 +73,10 @@ bot.on('guildCreate', guild => {
     .addField('Join the support server!', 'https://discord.gg/wf64e98', true)
     .addField('+info', 'To get started with the bot!', true)
     .setFooter('If you have any questions please join the support server or DM Siaff#3293.');
-    guild.systemChannel.send(helloEmbed);
-})
+    guild.channels.find('name', 'general-chat').send(helloEmbed);
+    guild.channels.find('name', 'general_chat').send(helloEmbed);
+    guild.channels.find('name', 'general').send(helloEmbed);
+});
 
 // For when someone sends a message
 bot.on('message', async message => {
