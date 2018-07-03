@@ -7,11 +7,11 @@ const DBL = require("dblapi.js");
 const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNjQwNjEwNjAxMzgyNzA3MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTMwNjI1Nzg1fQ.b3jqwLoTxGjdgBk6LNjl2Y_MQSZixKzfVY9rsFuCrN0', bot);
 // Server counts for discordbots website.
 dbl.on('posted', () => {
-  console.log('Server count posted!');
-})
-dbl.on('error', e => {
- console.log(`Oops! ${e}`);
-})
+    console.log('Server count posted!');
+  })
+  dbl.on('error', e => {
+   console.log(`Oops! ${e}`);
+  })
 
 // Prefix
 const prefix = '+';
@@ -57,6 +57,12 @@ bot.on('ready', () => {
     // Sets activity
     bot.user.setActivity('the weather || +info', {type: 'WATCHING'});
 });
+
+bot.on('guildCreate', guild => {
+    let helloEmbed = new Discord.RichEmbed()
+    .setTitle('Dun-Dunv2')
+    guild.systemChannel.send(helloEmbed);
+})
 // For when someone sends a message
 bot.on('message', async message => {
 
