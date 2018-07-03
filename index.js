@@ -154,6 +154,7 @@ bot.on('message', async message => {
         .addField('Prefix:', '+', true)
         .addField('Getting started', '+help', true)
         .addField('Join the support server!', 'https://discord.gg/wf64e98', true)
+        .addField('Please vote for the bot !', 'https://discordbots.org/bot/436406106013827072/vote', true)
         .setFooter('Bot made by Siaff#3293');
         message.channel.send(infoEmbed);
     }
