@@ -186,4 +186,4 @@ bot.on('message', async message => {
 });
 
 // Login key for Dun Dunv2
-bot.login('NDM2NDA2MTA2MDEzODI3MDcy.DhwH3g.gcbF44bWd0n55cg6oiFSac6OoIY');
+bot.login('Secret Key that you\'ll never know!');
