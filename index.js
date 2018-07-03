@@ -198,4 +198,4 @@ bot.on('message', async message => {
 });
 
 // Login key for Dun Dunv2
-bot.login('Bot Token Removed');
+bot.login('Token Removed');
