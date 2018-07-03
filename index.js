@@ -39,6 +39,10 @@ function fixKeys(json) {
     return result;
 }
 
+// Makes the bot not crash.
+bot.on("error", (e) => console.error(e));
+bot.on("warn", (e) => console.warn(e));
+bot.on("debug", (e) => console.info(e));
 // Logging and actions when bot is ready to use.
 bot.on('ready', () => {
     console.log('– - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
@@ -58,25 +62,6 @@ bot.on('ready', () => {
     bot.user.setActivity('the weather || +info', {type: 'WATCHING'});
 });
 
-bot.on('guildCreate', guild => {
-    // message.guild.channels.get('<CHANNEL ID>').createInvite().then(invite =>
-    //     message.channel.send(invite.url)
-    // );
-    // guild.channels.systemChannel.createInvite().then(invite => 
-    //     siaff.send(invite.url)
-    // );
-    let helloEmbed = new Discord.RichEmbed()
-    .setTitle('Dun-Dunv2')
-    .setColor([61, 82, 200])
-    .addField('Information about the bot.', 'https://discordbots.org/bot/436406106013827072', true)
-    .addField('Vote for the bot', 'https://discordbots.org/bot/436406106013827072/vote', true)
-    .addField('Join the support server!', 'https://discord.gg/wf64e98', true)
-    .addField('+info', 'To get started with the bot!', true)
-    .setFooter('If you have any questions please join the support server or DM Siaff#3293.');
-    guild.channels.find('name', 'general-chat').send(helloEmbed);
-    guild.channels.find('name', 'general_chat').send(helloEmbed);
-    guild.channels.find('name', 'general').send(helloEmbed);
-});
 
 // For when someone sends a message
 bot.on('message', async message => {
