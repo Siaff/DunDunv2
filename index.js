@@ -91,20 +91,24 @@ bot.on('message', async message => {
     }
 
     // TAF Command [WIP]
-    // https://avwx.rest/api/taf/EKCH?options=info,translate,speech
-    /*
+    // https://avwx.rest/api/taf/EKCH?options=summary
     if (cmd == `${prefix}taf`) {
         console.log(`TAF for ${args}`);
-        let tafReqURL = `https://avwx.rest/api/taf/${args}?options=info,translate,speech`;
+        let argz = args.map(e=>e.toUpperCase());
+        let reqURL = `https://avwx.rest/api/taf/${argz}?options=summary`;
         message.channel.startTyping(true);
-        let tafResponse = await fetch(tafReqURL);
-        let tafJson = fixKeys(await tafResponse.json());
+        let response = await fetch(reqURL);
+        let json = fixKeys(await response.json());
         let optText = (truthy, ifTrue, ifFalse = "") => truthy ? ifTrue : ifFalse;
         message.channel.stopTyping(true);
         let TAFEmbed = new Discord.RichEmbed()
-            .addTitle(``)
+            .setTitle(`TAF for ${json.Station}`)
+            .setColor([99, 154, 210]) // Fix later.
+            .addField('Raw Report', `${json.RawReport}`, true)
+            .addBlankField(true)
+            .addField('Readable', `${json.Forecast[0].Summary}`, true)
+        message.channel.send(TAFEmbed);a
     }
-    */
 
     // ICAO Command [WIP]
     // https://avwx.rest/api/metar/EKCH?options=info,translate,speech
@@ -194,4 +198,4 @@ bot.on('message', async message => {
 });
 
 // Login key for Dun Dunv2
-bot.login('Token Removed!');
+bot.login('Bot Token Removed');
