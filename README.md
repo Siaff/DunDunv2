@@ -1,7 +1,7 @@
 # Dun-Dunv2
 Dun-Dunv2 is a small Aviation Bot that is focused on getting weather as TAF & METAR. The bot is still WIP but will feature route planning soon.
-If you want anything else to be added to Dun-Dunv2 just contact <b>Siaff#3293</b> 
-or join the <a href='https://discord.gg/wf64e98'>support server by clicking here!</a>
+If you want anything else to be added to Dun-Dunv2 just contact <b>Siaff#3293</b> or 
+<a href='https://discord.gg/wf64e98'>join the support server by clicking here!</a>
 
 Dun-Dunv2 even decodes the METAR & TAF for you!
 
