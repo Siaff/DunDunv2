@@ -61,8 +61,15 @@ bot.on('ready', () => {
 bot.on('guildCreate', guild => {
     let helloEmbed = new Discord.RichEmbed()
     .setTitle('Dun-Dunv2')
+    .setColor([61, 82, 200])
+    .addField('Information about the bot.', 'https://discordbots.org/bot/436406106013827072', true)
+    .addField('Vote for the bot', 'https://discordbots.org/bot/436406106013827072/vote', true)
+    .addField('Join the support server!', 'https://discord.gg/wf64e98', true)
+    .addField('+info', 'To get started with the bot!', true)
+    .setFooter('If you have any questions please join the support server or DM Siaff#3293.');
     guild.systemChannel.send(helloEmbed);
 })
+
 // For when someone sends a message
 bot.on('message', async message => {
 
