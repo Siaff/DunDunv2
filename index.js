@@ -114,7 +114,7 @@ bot.on('message', async message => {
         let response = await fetch(reqURL);
         let json = fixKeys(await response.json());
         let optText = (truthy, ifTrue, ifFalse = "") => truthy ? ifTrue : ifFalse;
-        message.channel.send(`${json.Info.ICAO} is the ICAO for \`\`${json.Info.Name}\`\``);
+        message.channel.send(`${json.Info.ICAO}'s full name is \`\`${json.Info.Name}\`\``);
     }
 
 
@@ -193,4 +193,4 @@ bot.on('message', async message => {
 });
 
 // Login key for Dun Dunv2
-bot.login('REMOVED');
+bot.login('Token Removed.');
