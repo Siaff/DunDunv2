@@ -3,8 +3,17 @@ const fetch = require('node-fetch');
 const moment = require('moment');
 // const fs = require('fs');
 const bot = new Discord.Client();
+const DBL = require("dblapi.js");
+const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNjQwNjEwNjAxMzgyNzA3MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTMwNjI1Nzg1fQ.b3jqwLoTxGjdgBk6LNjl2Y_MQSZixKzfVY9rsFuCrN0', bot);
+// Server counts for discordbots website.
+dbl.on('posted', () => {
+  console.log('Server count posted!');
+})
+dbl.on('error', e => {
+ console.log(`Oops! ${e}`);
+})
 
-// Prefix for .toLowerCase();.
+// Prefix
 const prefix = '+';
 
 // By using moment we get the Zulu time.
@@ -189,7 +198,9 @@ bot.on('message', async message => {
         message.channel.bulkDelete(argz + 1)	
         .then(messages => message.channel.send(`**Successfully deleted \`${messages.size - 1}/${args[0]}\` messages**`)	
         .then(message => message.delete(10000)));	
-    }	
+    }
+
+
 });
 
 // Login key for Dun Dunv2
