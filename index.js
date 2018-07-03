@@ -175,15 +175,21 @@ bot.on('message', async message => {
         .setFooter(`Requested by ${message.author.tag}`);
         message.channel.send(helpEmbed);
     }
-    if (cmd == `${prefix}purge`)
-        if (message.guild.id != '380414605744275456') return message.channel.send('*Shhhh this command only works in some servers.*');
-        if (isNaN(args[0])) return msg.send('**Please supply a valid amount of messages to purge**');
-		if (args[0] > 100) return msg.send('**Please supply a number less than 100**');
-		msg.channel.bulkDelete(args[0] + 1)
-			.then(messages => msg.channel.send(`**Successfully deleted \`${messages.size - 1}/${args[0]}\` messages**`).then(msg => msg.delete({
-				timeout: 10000
-			})));
+
+    // Purge Command up to a 100.	
+    if(cmd == `${prefix}purge`) {	
+        // Checks server id. So it only works in Unga Flygare.
+        if (message.guild.id != '380414605744275456') return message.channel.send('Shhhh, this only works in Siaffs private server!');
+        if (isNaN(args)) return message.channel.send('**Please supply a valid amount of messages to purge**');	
+        if (args > 100) return message.channel.send('**Please supply a number less than 100**');	
+        // Logging	
+        console.log(`Purged ${args} messages`);	
+        let argz = Number(args);	
+        message.channel.bulkDelete(argz + 1)	
+        .then(messages => message.channel.send(`**Successfully deleted \`${messages.size - 1}/${args[0]}\` messages**`)	
+        .then(message => message.delete(10000)));	
+    }	
 });
 
 // Login key for Dun Dunv2
-bot.login('Secret Key that you\'ll never know!');
+// Token Removed.
