@@ -92,6 +92,7 @@ bot.on('message', async message => {
 
     // TAF Command [WIP]
     // https://avwx.rest/api/taf/EKCH?options=info,translate,speech
+    /*
     if (cmd == `${prefix}taf`) {
         console.log(`TAF for ${args}`);
         let tafReqURL = `https://avwx.rest/api/taf/${args}?options=info,translate,speech`;
@@ -102,6 +103,18 @@ bot.on('message', async message => {
         message.channel.stopTyping(true);
         let TAFEmbed = new Discord.RichEmbed()
             .addTitle(``)
+    }
+    */
+
+    // ICAO Command [WIP]
+    // https://avwx.rest/api/metar/EKCH?options=info,translate,speech
+    if (cmd == `${prefix}icao`) {
+        console.log(`Checking ICAO for ${args}`);
+        let reqURL = `https://avwx.rest/api/metar/${args}?options=info,translate,speech`;
+        let response = await fetch(reqURL);
+        let json = fixKeys(await response.json());
+        let optText = (truthy, ifTrue, ifFalse = "") => truthy ? ifTrue : ifFalse;
+        message.channel.send(`${json.Info.ICAO} is the ICAO for \`\`${json.Info.Name}\`\``);
     }
 
 
@@ -152,7 +165,7 @@ bot.on('message', async message => {
         let infoEmbed = new Discord.RichEmbed()
         .setTitle('Dun-Dun Information.')
         .setColor([55, 213, 252])
-        .setDescription('Dun-Dun is a small Aviation bot that is mostly focused around getting METAR. (METAR is weather for airports)')
+        .setDescription('Dun-Dun is a small Aviation bot that is mostly focused around weather.')
         .addField('Prefix:', '+', true)
         .addField('Getting started', '+help', true)
         .setFooter('Bot made by Siaff#3293');
@@ -173,10 +186,11 @@ bot.on('message', async message => {
         .addBlankField(true)
         .addField('+ping', 'Pings the bot and gives you the bots ping.', true)
         .addField('+purge', 'Purges messages if it has perms to do it.', true)
+        .addField('+icao', 'If you supply an ICAO after the command it will give the Airports name.', true)
         .setFooter(`Requested by ${message.author.tag}`);
         message.channel.send(helpEmbed);
     }
 });
 
 // Login key for Dun Dunv2
-bot.login('Token taken away.');
+bot.login('Token taken away');
