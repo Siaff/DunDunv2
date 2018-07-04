@@ -1,9 +1,11 @@
 const Discord = require('discord.js');
 const fetch = require('node-fetch');
 const moment = require('moment');
+const DBL = require("dblapi.js");
+const notams = require('notams');
+
 // const fs = require('fs');
 const bot = new Discord.Client();
-const DBL = require("dblapi.js");
 const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNjQwNjEwNjAxMzgyNzA3MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTMwNjI1Nzg1fQ.b3jqwLoTxGjdgBk6LNjl2Y_MQSZixKzfVY9rsFuCrN0', bot);
 // Server counts for discordbots website.
 dbl.on('posted', () => {
@@ -58,6 +60,9 @@ bot.on('ready', () => {
     console.log('– - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
     console.log('Connection Time                                   ' + timeform);
     console.log('– - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
+    let notam = notams(['EKCH'], {format: 'DOMESTIC'}).then(results => {
+        console.log(results);
+    });
     // Sets activity
     bot.user.setActivity('the weather || +info', {type: 'WATCHING'});
 });
@@ -106,7 +111,7 @@ bot.on('message', async message => {
         message.channel.send(METAREmbed);
     }
 
-    // TAF Command [WIP]
+    // TAF Command
     // https://avwx.rest/api/taf/EKCH?options=summary
     if (cmd == `${prefix}taf`) {
         console.log(`TAF for ${args}`);
@@ -126,7 +131,12 @@ bot.on('message', async message => {
         message.channel.send(TAFEmbed);a
     }
 
-    // ICAO Command [WIP]
+    // NOTAM Command
+    if (cmd == `${prefix}notam`) {
+        let notam = notams([`${args}`])
+    }
+
+    // ICAO Command
     // https://avwx.rest/api/metar/EKCH?options=info,translate,speech
     if (cmd == `${prefix}icao`) {
         console.log(`Checking ICAO for ${args}`);
