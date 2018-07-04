@@ -185,7 +185,7 @@ bot.on('message', async message => {
         let infoEmbed = new Discord.RichEmbed()
         .setTitle('Dun-Dun Information.')
         .setColor([55, 213, 252])
-        .setDescription('Dun-Dun is a small Aviation bot that is mostly focused around weather.')
+        .setDescription('Dun-Dun is a small Aviation bot that is mostly focused around weather but also NOTAMs.')
         .addField('Prefix:', '+', true)
         .addField('Getting started', '+help', true)
         .addField('Join the support server!', 'https://discord.gg/wf64e98', true)
@@ -196,18 +196,20 @@ bot.on('message', async message => {
 
     // Help Command.
     if (cmd == `${prefix}help`) {
-        console.log('Helping');
+        console.log('Helping ' + message.author.tag);
         let helpEmbed = new Discord.RichEmbed()
         .setTitle('Dun-Dun to the rescue!')
         .setColor([43, 43, 255])
         .addField('+help', 'This command...', true)
         .addBlankField(true)
         .addField('+info', 'Gives some information about the bot.', true)
-        .addField('+metar [ICAO]', 'Example \'+metar EKCH\'. Gives you METAR of any airport.', true)
+        .addField('+metar [ICAO]', 'Example \'+metar EKCH\'. Gives you live METAR of any airport.', true)
+        .addField('+taf [ICAO]', 'Example \"+metar EKC\". Gives you live TAF of any airport.', true)
+        .addField('+notam [ICAO]', 'Example \"+notam EKCH\". Gives you live NOTAMs of any airport', true)
+        .addField('+icao', 'If you supply an ICAO after the command it will give the Airports name.', true)
         .addField('+uptime', 'Gives you the uptime of the bot.', true)
         .addBlankField(true)
         .addField('+ping', 'Pings the bot and gives you the bots ping.', true)
-        .addField('+icao', 'If you supply an ICAO after the command it will give the Airports name.', true)
         .setFooter(`Requested by ${message.author.tag}`);
         message.channel.send(helpEmbed);
     }
