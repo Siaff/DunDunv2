@@ -60,7 +60,7 @@ bot.on('ready', () => {
     console.log('– - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
     console.log('Connection Time                                   ' + timeform);
     console.log('– - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
-    let notam = notams(['EKCH'], {format: 'ICAO'}).then(results => {
+    let notam = notams(['EKCH'], {format: ''}).then(results => {
         console.log(results);
     });
     // Sets activity
@@ -124,7 +124,7 @@ bot.on('message', async message => {
         message.channel.stopTyping(true);
         let TAFEmbed = new Discord.RichEmbed()
             .setTitle(`TAF for ${json.Station}`)
-            .setColor([99, 154, 210])
+            .setColor([99, 154, 210]) // Fix later.
             .addField('Raw Report', `${json.RawReport}`, true)
             .addBlankField(true)
             .addField('Readable', `${json.Forecast[0].Summary}`, true)
@@ -135,11 +135,9 @@ bot.on('message', async message => {
     if (cmd == `${prefix}notam`) {
         notams([`${args}`], { format: 'DOMESTIC' }).then(result => {
             let notamEmbed = new Discord.RichEmbed()
-            // .setTitle(`${result[0].icao} NOTAMs`)
-            .addField('1st', `${result[0].notams[1]}`)
-             .addField('2nd', `${result[0].notams[2]}`)
-            .setColor([99, 154, 210]);
-            message.channel.send(`${notamEmbed}`);
+            .setDescription(result[0].notams[1]);
+            message.channel.send(`\`\`\`${result[0].notams[1]} \`\`\``);
+            message.channel.send(notamEmbed);
         });
     }
 
