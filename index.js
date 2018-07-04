@@ -133,7 +133,7 @@ bot.on('message', async message => {
         let argz = args.map(e=>e.toUpperCase());
         console.log(`NOTAM for ${argz} by ${message.author.tag}`)
         message.channel.startTyping(true)
-        notams([`${argz}`], { format: 'DOMESTIC' }).then(result => {
+        notams(`${argz}`, { format: 'DOMESTIC' }).then(result => {
             let notamEmbed = new Discord.RichEmbed()
             .setTitle(`${result[0].icao}'s NOTAMs`)
             .setColor([99, 154, 210])
