@@ -81,7 +81,7 @@ bot.on('message', async message => {
     // Metar Command
     // https://avwx.rest/api/metar/EKCH?options=info,translate,speech
     if(cmd == `${prefix}metar`) {
-        console.log(`METAR for ${args}`);
+        console.log(`METAR for ${args} by ${message.author.tag}`);
         let argz = args.map(e=>e.toUpperCase());
         let reqURL = `https://avwx.rest/api/metar/${argz}?options=info,translate,speech`;
         message.channel.startTyping(true);
@@ -111,7 +111,7 @@ bot.on('message', async message => {
     // TAF Command
     // https://avwx.rest/api/taf/EKCH?options=summary
     if (cmd == `${prefix}taf`) {
-        console.log(`TAF for ${args}`);
+        console.log(`TAF for ${args} by ${message.author.tag}`);
         let argz = args.map(e=>e.toUpperCase());
         let reqURL = `https://avwx.rest/api/taf/${argz}?options=summary`;
         message.channel.startTyping(true);
@@ -130,8 +130,10 @@ bot.on('message', async message => {
 
     // NOTAM Command
     if (cmd == `${prefix}notam`) {
+        let argz = args.map(e=>e.toUpperCase());
+        console.log(`NOTAM for ${argz} by ${message.author.tag}`)
         message.channel.startTyping(true)
-        notams([`${args}`], { format: 'DOMESTIC' }).then(result => {
+        notams([`${argz}`], { format: 'DOMESTIC' }).then(result => {
             let notamEmbed = new Discord.RichEmbed()
             .setTitle(`${result[0].icao}'s NOTAMs`)
             .setColor([99, 154, 210])
@@ -145,8 +147,9 @@ bot.on('message', async message => {
     // ICAO Command
     // https://avwx.rest/api/metar/EKCH?options=info,translate,speech
     if (cmd == `${prefix}icao`) {
-        console.log(`Checking ICAO for ${args}`);
-        let reqURL = `https://avwx.rest/api/metar/${args}?options=info,translate,speech`;
+        let argz = args.map(e=>e.toUpperCase());
+        console.log(`Checking ICAO for ${argz} by ${message.author.tag}`);
+        let reqURL = `https://avwx.rest/api/metar/${argz}?options=info,translate,speech`;
         let response = await fetch(reqURL);
         let json = fixKeys(await response.json());
         let optText = (truthy, ifTrue, ifFalse = "") => truthy ? ifTrue : ifFalse;
@@ -155,7 +158,7 @@ bot.on('message', async message => {
 
     // Ping Command to check connection.
     if (cmd == `${prefix}ping`) {
-        console.log('Pong!');
+        console.log(`Pong! For ${message.author.tag}`);
         const editMsg = await message.channel.send('Why would you ping me?');
         editMsg.edit(`Pong! Roundtrip: ${editMsg.createdTimestamp - message.createdTimestamp}ms, heatbeat ${~~bot.ping}ms`);
    }
@@ -172,13 +175,13 @@ bot.on('message', async message => {
         .setTitle('Dun-Duns Uptime')
         .setDescription(`\`\`\`${days} Days, ${hours} hrs, ${minutes} mins, ${~~seconds} secs.\`\`\``)
         .setFooter('Wowie, maybe this is the longest time ol\' Dun-Dun has been up?!?!?!!');
-        console.log(`Uptime: ${hours}, ${minutes}, ${~~seconds}`);
+        console.log(`Uptime: ${hours}, ${minutes}, ${~~seconds} by ${message.author.tag}`);
         message.channel.send(uptimeEmbed);
     }
     
     // Info Command
     if (cmd == `${prefix}info`) {
-        console.log('Info');
+        console.log(`Info for ${message.author.tag}`);
         let infoEmbed = new Discord.RichEmbed()
         .setTitle('Dun-Dun Information.')
         .setColor([55, 213, 252])
@@ -218,14 +221,15 @@ bot.on('message', async message => {
         if (isNaN(args)) return message.channel.send('**Please supply a valid amount of messages to purge**');	
         if (args > 100) return message.channel.send('**Please supply a number less than 100**');	
         // Logging	
-        console.log(`Purged ${args} messages`);	
+        console.log(`Purged ${args} messages. Purge done by: ${message.author.tag}`);	
         let argz = Number(args);	
-        message.channel.bulkDelete(argz + 1)	
+        message.channel.bulkDelete(argz + 1)
         .then(messages => message.channel.send(`**Successfully deleted \`${messages.size - 1}/${args[0]}\` messages**`)	
         .then(message => message.delete(10000)));	
     }
     
     if (cmd == `${prefix}users`) {
+        console.log(`User checked by ${message.author.tag}`);
         if (message.guild.id != '380414605744275456') return message.channel.send('Shhhh, this only works in Siaffs private server!');
         // message.channel.send(this.bot.users.size())
     }
