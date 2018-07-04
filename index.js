@@ -44,7 +44,7 @@ function fixKeys(json) {
 // Makes the bot not crash.
 bot.on("error", (e) => console.error(e));
 bot.on("warn", (e) => console.warn(e));
-bot.on("debug", (e) => console.info(e));
+
 // Logging and actions when bot is ready to use.
 bot.on('ready', () => {
     console.log('– - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
@@ -60,9 +60,6 @@ bot.on('ready', () => {
     console.log('– - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
     console.log('Connection Time                                   ' + timeform);
     console.log('– - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
-    let notam = notams(['EKCH'], {format: ''}).then(results => {
-        console.log(results);
-    });
     // Sets activity
     bot.user.setActivity('the weather || +info', {type: 'WATCHING'});
 });
