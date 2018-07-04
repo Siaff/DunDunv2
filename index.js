@@ -173,6 +173,7 @@ bot.on('message', async message => {
         let days = Math.floor(totalSeconds / 86400);
         let uptimeEmbed = new Discord.RichEmbed()
         .setTitle('Dun-Duns Uptime')
+        .setColor([101, 244, 66])
         .setDescription(`\`\`\`${days} Days, ${hours} hrs, ${minutes} mins, ${~~seconds} secs.\`\`\``)
         .setFooter('Wowie, maybe this is the longest time ol\' Dun-Dun has been up?!?!?!!');
         console.log(`Uptime: ${hours}, ${minutes}, ${~~seconds} by ${message.author.tag}`);
