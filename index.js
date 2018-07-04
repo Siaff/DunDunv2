@@ -124,7 +124,7 @@ bot.on('message', async message => {
         message.channel.stopTyping(true);
         let TAFEmbed = new Discord.RichEmbed()
             .setTitle(`TAF for ${json.Station}`)
-            .setColor([99, 154, 210]) // Fix later.
+            .setColor([99, 154, 210])
             .addField('Raw Report', `${json.RawReport}`, true)
             .addBlankField(true)
             .addField('Readable', `${json.Forecast[0].Summary}`, true)
@@ -133,11 +133,15 @@ bot.on('message', async message => {
 
     // NOTAM Command
     if (cmd == `${prefix}notam`) {
+        message.channel.startTyping(true)
         notams([`${args}`], { format: 'DOMESTIC' }).then(result => {
             let notamEmbed = new Discord.RichEmbed()
-            .setDescription(result[0].notams[1]);
-            message.channel.send(`\`\`\`${result[0].notams[1]} \`\`\``);
+            .setTitle(`${result[0].icao}'s NOTAMs`)
+            .setColor([99, 154, 210])
+            .addField('Notam', `${result[0].notams[1]}`, true)
+            // message.channel.send(`\`\`\`${result[0].notams[1]} \`\`\``);
             message.channel.send(notamEmbed);
+            message.channel.stopTyping(true);
         });
     }
 
