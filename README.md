@@ -35,6 +35,7 @@ TAF is a forecast for airports! TAF stands for Terminal Aerodrome Forecast. TAF 
 NOTAMs are used to write "Remarks" about the airport. NOTAM stands for Notice To Airmen. 
 # WIP
 - Weight translation.
+- Knots to Mach translation.
 - Route planning wihtin Europe
 - Global Route planning
 - Aviation Quizes.
