@@ -167,7 +167,6 @@ bot.on('message', async message => {
             .setTitle('🏓 Pong!')
             .setColor([53, 254, 75])
             .addField('Roundtrip', `${editMsg.createdTimestamp - message.createdTimestamp}ms`, true)
-            .addBlankField(true)
             .addField('Heartbeat', `${~~bot.ping}ms`, true);
         editMsg.edit(pingEmbed);
    }
