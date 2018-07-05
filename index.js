@@ -222,6 +222,7 @@ bot.on('message', async message => {
     }
 
     if (cmd == `${prefix}invite`) {
+        console.log(`Sent an invite to ${message.author.tag}`);
         let inviteEmbed = new Discord.RichEmbed()
         .setTitle('Want me in your server?')
         .setColor([74, 216, 126])
