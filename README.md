@@ -27,6 +27,7 @@ But will still give you the raw report.
 + help    ––– Shows a command like this with all the commands and also some information about them.
 + ping	  ––– Gives you the bots ping.
 + uptime  ––– Gives you how long the bot has been up.
++ invite  ––– Gives you a link to invite Dun-Dunv2 and an invite to the Support Server!
 
 
 METAR is weather for airports! METAR stands for Meteorological Terminal Aviation Routine. METAR gives you information about the airports weather.
