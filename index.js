@@ -215,6 +215,15 @@ bot.on('message', async message => {
         message.channel.send(helpEmbed);
     }
 
+    if (cmd == `${prefix}invite`) {
+        let inviteEmbed = new Discord.RichEmbed()
+        .setTitle('Want me in your server?')
+        .setColor([74, 216, 126])
+        .addField('Invite link:', 'https://discordapp.com/oauth2/authorize?client_id=436406106013827072&permissions=37219392&scope=bot', true)
+        .addField('Support server:', 'https://discord.gg/wf64e98', true);
+        message.channel.send(inviteEmbed);
+    }
+
     // Purge Command up to a 100.	
     if(cmd == `${prefix}purge`) {	
         // Checks server id. So it only works in Unga Flygare.
