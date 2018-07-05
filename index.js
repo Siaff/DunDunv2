@@ -186,7 +186,7 @@ bot.on('message', async message => {
         let infoEmbed = new Discord.RichEmbed()
         .setTitle('Dun-Dun Information.')
         .setColor([55, 213, 252])
-        .setDescription('Dun-Dun is a small Aviation bot that is mostly focused around weather but also NOTAMs.')
+        .setDescription('Dun-Dun is a small Aviation bot that is mostly focused around weather but also NOTAMs. Dun-Dunv2 is made in discord.js 11.3.2.')
         .addField('Prefix:', '+', true)
         .addField('Getting started', '+help', true)
         .addField('Join the support server!', 'https://discord.gg/wf64e98', true)
