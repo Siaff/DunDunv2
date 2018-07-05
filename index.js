@@ -9,7 +9,6 @@ const bot = new Discord.Client();
 const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNjQwNjEwNjAxMzgyNzA3MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTMwNjI1Nzg1fQ.b3jqwLoTxGjdgBk6LNjl2Y_MQSZixKzfVY9rsFuCrN0', bot);
 // Server counts for discordbots website.
 dbl.on('posted', () => {
-    console.log('Server count posted!');
 });
 dbl.on('error', e => {
    console.log(`Oops! ${e}`);
@@ -233,7 +232,7 @@ bot.on('message', async message => {
     }
 
     // Purge Command up to a 100.	
-    if(cmd == `${prefix}purge`) {	
+    if(cmd == `${prefix}purge`) {
         // Checks server id. So it only works in Unga Flygare.
         if (message.guild.id != '380414605744275456') return message.channel.send('Shhhh, this only works in Siaffs private server!');
         if (isNaN(args)) return message.channel.send('**Please supply a valid amount of messages to purge**');	
