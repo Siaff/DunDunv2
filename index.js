@@ -160,7 +160,13 @@ bot.on('message', async message => {
     if (cmd == `${prefix}ping`) {
         console.log(`Pong! For ${message.author.tag}`);
         const editMsg = await message.channel.send('Why would you ping me?');
-        editMsg.edit(`Pong! Roundtrip: ${editMsg.createdTimestamp - message.createdTimestamp}ms, heatbeat ${~~bot.ping}ms`);
+        let pingEmbed = new Discord.RichEmbed()
+            .setTitle('🏓 Pong!')
+            .setColor([53, 254, 75])
+            .addField('Roundtrip', `${editMsg.createdTimestamp - message.createdTimestamp}ms`, true)
+            .addBlankField(true)
+            .addField('Heartbeat', `${~~bot.ping}ms`, true);
+        editMsg.edit(pingEmbed);
    }
 
    // Uptime Command to check how long the bot hasa been up!
