@@ -44,6 +44,10 @@ function fixKeys(json) {
 bot.on("error", (e) => console.error(e));
 bot.on("warn", (e) => console.warn(e));
 
+
+bot.on('guildCreate', guild => {
+    console.log('New Guild added!');
+});
 // Logging and actions when bot is ready to use.
 bot.on('ready', () => {
     console.log('– - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
