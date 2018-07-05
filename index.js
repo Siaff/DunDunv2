@@ -219,8 +219,9 @@ bot.on('message', async message => {
         let inviteEmbed = new Discord.RichEmbed()
         .setTitle('Want me in your server?')
         .setColor([74, 216, 126])
-        .addField('Invite link:', 'https://discordapp.com/oauth2/authorize?client_id=436406106013827072&permissions=37219392&scope=bot', true)
-        .addField('Support server:', 'https://discord.gg/wf64e98', true);
+        .addField('Invite link:', '[Click here to invite the Bot!](https://discordapp.com/oauth2/authorize?client_id=436406106013827072&permissions=37219392&scope=bot)', true)
+        .addBlankField(true)
+        .addField('Support server:', '[Click here for Support Server!](https://discord.gg/wf64e98)', true)
         message.channel.send(inviteEmbed);
     }
 
