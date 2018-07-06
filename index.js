@@ -259,4 +259,3 @@ bot.on('message', async message => {
 
 // Login key for Dun Dunv2
 // Token Removed.
-bot.login('NDM2NDA2MTA2MDEzODI3MDcy.Dh-V0Q.ukPmvNV5NOu4z047CkabjcmAxLk');
