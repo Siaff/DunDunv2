@@ -129,7 +129,7 @@ bot.on('message', async message => {
             .addField('Raw Report', `${json.RawReport}`, true)
             .addBlankField(true)
             .addField('Readable', `${json.Forecast[0].Summary}`, true)
-        message.channel.send(TAFEmbed);a
+        message.channel.send(TAFEmbed);
     }
 
     // NOTAM Command
@@ -259,3 +259,4 @@ bot.on('message', async message => {
 
 // Login key for Dun Dunv2
 // Token Removed.
+bot.login('NDM2NDA2MTA2MDEzODI3MDcy.Dh-V0Q.ukPmvNV5NOu4z047CkabjcmAxLk');
