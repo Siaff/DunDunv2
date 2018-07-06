@@ -259,6 +259,7 @@ bot.on('message', async message => {
     }
 
     if (cmd == `${prefix}utc`) {
+        console.log(`UTC given to ${message.author.tag}`);
         let utcEmbed = new Discord.RichEmbed()
             .setTitle('UTC Time')
             .setDescription(`${timeform3} UTC`)
