@@ -48,6 +48,7 @@ bot.on("warn", (e) => console.warn(e));
 bot.on('guildCreate', guild => {
     console.log('New Guild added!');
 });
+
 // Logging and actions when bot is ready to use.
 bot.on('ready', () => {
     console.log('– - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
@@ -252,9 +253,8 @@ bot.on('message', async message => {
     if (cmd == `${prefix}users`) {
         console.log(`User checked by ${message.author.tag}`);
         if (message.guild.id != '380414605744275456') return message.channel.send('Shhhh, this only works in Siaffs private server!');
-        // message.channel.send(this.bot.users.size())
+        let usersEmbed = new Discord.RichEmbed()
     }
-
 });
 
 // Login key for Dun Dunv2
