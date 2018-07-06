@@ -21,6 +21,7 @@ const prefix = '+';
 let time = moment.utc();
 let timeform = time.format('YYYY-MM-DD HH:mm:ss Z');
 let timeform2 = time.format('HH:mm:ss Z');
+let timeform3 = time.format('DD/MM HH:mm');
 
     // Console loggers for when the bot connects.
     console.log('– - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
@@ -254,6 +255,14 @@ bot.on('message', async message => {
         console.log(`User checked by ${message.author.tag}`);
         if (message.guild.id != '380414605744275456') return message.channel.send('Shhhh, this only works in Siaffs private server!');
         let usersEmbed = new Discord.RichEmbed()
+    }
+
+    if (cmd == `${prefix}utc`) {
+        let utcEmbed = new Discord.RichEmbed()
+            .setTitle('UTC Time')
+            .setDescription(`${timeform3} UTC`)
+            .setColor([101, 244, 66])
+        message.channel.send(utcEmbed);
     }
 });
 
