@@ -200,7 +200,7 @@ bot.on('message', async message => {
         .addField('Prefix', '+', true)
         .addField('Getting started', '+help', true)
         .addField('Join the support server!', '[By clicking here!](https://discord.gg/wf64e98)', true)
-        .addField('Please vote for the bot !', '[By clicking here!](https://discordbots.org/bot/436406106013827072/vote)', true)
+        .addField('Or invite the bot!', '[By clicking here!](https://discordapp.com/oauth2/authorize?client_id=436406106013827072&permissions=37219392&scope=bot)', true)
         .setFooter('Bot made by Siaff#3293');
         message.channel.send(infoEmbed);
     }
@@ -269,4 +269,4 @@ bot.on('message', async message => {
 });
 
 // Login key for Dun Dunv2
-// Token Removed.
+// Token Removed 
