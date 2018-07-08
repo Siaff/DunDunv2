@@ -196,11 +196,11 @@ bot.on('message', async message => {
         let infoEmbed = new Discord.RichEmbed()
         .setTitle('Dun-Dun Information.')
         .setColor([55, 213, 252])
-        .setDescription('Dun-Dun is a small Aviation bot that is mostly focused around weather but also NOTAMs. Dun-Dunv2 is made in discord.js 11.3.2.')
-        .addField('Prefix:', '+', true)
+        .setDescription('Dun-Dun is a small Aviation bot that is mostly focused around weather (METAR & TAF) but also NOTAMs. Dun-Dunv2 is made in discord.js 11.3.2.')
+        .addField('Prefix', '+', true)
         .addField('Getting started', '+help', true)
-        .addField('Join the support server!', 'https://discord.gg/wf64e98', true)
-        .addField('Please vote for the bot !', 'https://discordbots.org/bot/436406106013827072/vote', true)
+        .addField('Join the support server!', '[By clicking here!](https://discord.gg/wf64e98)', true)
+        .addField('Please vote for the bot !', '[By clicking here!](https://discordbots.org/bot/436406106013827072/vote)', true)
         .setFooter('Bot made by Siaff#3293');
         message.channel.send(infoEmbed);
     }
