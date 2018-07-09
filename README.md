@@ -18,7 +18,7 @@ Dun-Dunv2 even decodes the METAR & TAF for you!
 
 But will still give you the raw report.
 
-<h1> Commands </h1>
+# Commands
 + metar   ––– Usage: "+metar EKCH". If you supply the correct ICAO for your airport it will get the information that you requested.
 + taf     ––– Usage "+taf EKCH". If you supply the correct ICAO for your airport it will get the information that you requested.
 + notam   ––– Usage "+notam EKCH". If you supply a correct ICAO for you airport it will get the information that you requested.
@@ -41,3 +41,4 @@ NOTAMs are used to write "Remarks" about the airport. NOTAM stands for Notice To
 - Global Route planning
 - Aviation Quizes.
 - Radio Quiz (PPL Quiz)
+- Metrology Quiz (PPL Quiz)
