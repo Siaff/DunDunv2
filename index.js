@@ -97,8 +97,13 @@ bot.on('message', async message => {
         let METAREmbed = new Discord.RichEmbed()
             .setTitle(`${json.Info.City}, ${json.Info.Name} – ${json.Info.ICAO}`)
             .setColor([93, 233, 235])
-            .addField('Readable Report:', `${json.Speech}`, true)
-            .addField('RAW Report:',`${json.RawReport}`, true)
+            .setDescription(`**Readable Report:**
+${json.Speech}
+
+**Raw Report:**
+${json.RawReport}`)
+            // .addField('Readable Report:', `${json.Speech}`, true)
+            // .addField('RAW Report:',`${json.RawReport}`, true)
             .addField('Flight Rule:', `${json.FlightRules}`, true)
             .addBlankField(true)
             .addField('Time of Report', `${json.Meta.Timestamp}`, true)
