@@ -101,15 +101,18 @@ bot.on('message', async message => {
 ${json.Speech}
 
 **Raw Report:**
-${json.RawReport}`)
-            // .addField('Readable Report:', `${json.Speech}`, true)
-            // .addField('RAW Report:',`${json.RawReport}`, true)
-            .addField('Flight Rule:', `${json.FlightRules}`, true)
-            .addBlankField(true)
+${json.RawReport}
+
+**Flight Rule:** ${json.FlightRules}
+
+**Visibility:** ${json.Translations.Visibility}     **Wind:** ${json.WindDirection} at ${json.WindSpeed} ${json.Units.WindSpeed}
+
+**Clouds:** ${json.Translations.Clouds}`)
+            // .addField('Flight Rule:', `${json.FlightRules}`, true)
+            // .addField('Visibility', `${json.Translations.Visibility}`, true)
+            // .addField('Wind', `${json.WindDirection} at ${json.WindSpeed} ${json.Units.WindSpeed}`, true)
+            // .addField('Clouds:', `${json.Translations.Clouds}`, true)
             .addField('Time of Report', `${json.Meta.Timestamp}`, true)
-            .addField('Wind', `${json.WindDirection} at ${json.WindSpeed} ${json.Units.WindSpeed}`, true)
-            .addField('Visibility', `${json.Translations.Visibility}`, true)
-            .addField('Clouds:', `${json.Translations.Clouds}`, true)
             .addField('Temperature:', `${json.Translations.Temperature}`, true)
             .addField('Dewpoint:', `${json.Translations.Dewpoint}`, true)
             .addField('QNH:', `${json.Translations.Altimeter}`, true)
