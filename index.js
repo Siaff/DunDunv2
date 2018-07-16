@@ -86,8 +86,9 @@ bot.on('message', async message => {
 
     // Defining msg and args
     let msgArr = message.content.split(' ');
-    let cmd = msgArr[0];
+    let cm = msgArr[0];
     let args = msgArr.slice(1);
+    let cmd = cm.map(e=>e.toLowerCase());
 
     // Here comes the commands!
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
