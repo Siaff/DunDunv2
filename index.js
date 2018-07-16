@@ -234,7 +234,7 @@ ${json.RawReport}
         .addField('+metar [ICAO]', 'Example \'+metar EKCH\'. Gives you live METAR of any airport.', true)
         .addField('+taf [ICAO]', 'Example \"+metar EKC\". Gives you live TAF of any airport.', true)
         .addField('+notam [ICAO]', 'Example \"+notam EKCH\". Gives you live NOTAMs of any airport', true)
-        .addField('+icao', 'If you supply an ICAO after the command it will give the Airports name.', true)
+        .addField('+icao [ICAO]', 'If you supply an ICAO after the command it will give the Airports name.', true)
         .addField('+utc', 'Gives you the UTC time in a 24-hour format.', true)
         .addField('+invite', 'Gives you a link to invite the bot, also an invite to the Dun-Dunv2 support server.', true)
         .addField('+uptime', 'Gives you the uptime of the bot.', true)
