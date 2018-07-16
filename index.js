@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const fetch = require('node-fetch');
 const moment = require('moment');
-const DBL = require("dblapi.js");
+const DBL = require('dblapi.js');
 const notams = require('notams');
 
 // const fs = require('fs');
@@ -29,21 +29,21 @@ let timeform3 = time.format('DD/MM HH:mm');
 
 // Functions
 function fixKeys(json) {
-    if (typeof(json) !== "object") {
+    if (typeof(json) !== 'object') {
         return json;
     }
     let keys = Object.keys(json);
     let result = {};
     keys.forEach((key) => {
-        let cleanKey = key.replace(/-/g, "");
+        let cleanKey = key.replace(/-/g, '');
         result[cleanKey] = fixKeys(json[key]);
     });
     return result;
 }
 
 // Makes the bot not crash.
-bot.on("error", (e) => console.error(e));
-bot.on("warn", (e) => console.warn(e));
+bot.on('error', (e) => console.error(e));
+bot.on('warn', (e) => console.warn(e));
 
 
 bot.on('guildCreate', guild => {
@@ -100,7 +100,7 @@ bot.on('message', async message => {
         message.channel.startTyping(true);
         let response = await fetch(reqURL);
         let json = fixKeys(await response.json());
-        let optText = (truthy, ifTrue, ifFalse = "") => truthy ? ifTrue : ifFalse;
+        let optText = (truthy, ifTrue, ifFalse = '') => truthy ? ifTrue : ifFalse;
         message.channel.stopTyping(true);
         let METAREmbed = new Discord.RichEmbed()
             .setTitle(`${json.Info.City}, ${json.Info.Name} – ${json.Info.ICAO}`)
@@ -138,7 +138,7 @@ ${json.RawReport}
         message.channel.startTyping(true);
         let response = await fetch(reqURL);
         let json = fixKeys(await response.json());
-        let optText = (truthy, ifTrue, ifFalse = "") => truthy ? ifTrue : ifFalse;
+        let optText = (truthy, ifTrue, ifFalse = '') => truthy ? ifTrue : ifFalse;
         message.channel.stopTyping(true);
         let TAFEmbed = new Discord.RichEmbed()
             .setTitle(`TAF for ${json.Station}`)
