@@ -1,4 +1,4 @@
-<h1> Dun-Dunv2 </h1>
+<h1> Dun-Dunv2 <a href="https://discordbots.org/bot/436406106013827072"><img src="https://discordbots.org/api/widget/status/436406106013827072.svg" alt="Dun-Dunv2" /></a></h1>
 Dun-Dunv2 is a small Aviation Bot that is mostly focused on getting live weather as TAF & METAR but also got things like live NOTAMs for every airport.
 
 If you want anything else to be added to Dun-Dunv2 just contact <b>Siaff#3293</b> or 
@@ -34,11 +34,16 @@ But will still give you the raw report.
 METAR is weather for airports! METAR stands for Meteorological Terminal Aviation Routine. METAR gives you information about the airports weather.
 TAF is a forecast for airports! TAF stands for Terminal Aerodrome Forecast. TAF gives you a forecast about the weather including predicted winds.
 NOTAMs are used to write "Remarks" about the airport. NOTAM stands for Notice To Airmen. 
+<hr><br><br><center><h1>Status right now.</h1>
+<a href="https://discordbots.org/bot/436406106013827072" >
+  <img src="https://discordbots.org/api/widget/436406106013827072.svg" alt="Dun-Dunv2" />
+</a>
 <h3> WIP </h3>
-- Weight translation.
-- Knots to Mach translation.
-- Route planning wihtin Europe
-- Global Route planning
-- Aviation Quizes.
-- Radio Quiz (PPL Quiz)
-- Metrology Quiz (PPL Quiz)
+  <br>Weight translation.
+  <br>Knots to Mach translation.
+  <br>Route planning wihtin Europe
+  <br>Global Route planning
+  <br>Aviation Quizes.
+  <br>Radio Quiz (PPL Quiz)
+  <br>Metrology Quiz (PPL Quiz)
+</center>
