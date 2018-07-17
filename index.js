@@ -47,8 +47,9 @@ bot.on('warn', (e) => console.warn(e));
 
 
 bot.on('guildCreate', guild => {
-    console.log('New Guild added!');
-    // WIP - Join message.
+    console.log(`New guild added ${guild.name}, (guilds id is ${guild.id}). The guild added  has ${guild.memberCount} members!`);
+
+    // Join message
     guild.channels.filter(c => c.type === 'text').first().send(`Greetings and thank you for choosing Dun-Dunv2 <:NoToA350:465991428628152380>
 :arrow_right: If you need any help with understand Dun-Dunv2 join the support server! https://discord.gg/wf64e98
 :arrow_right: If you want to get started do **+info**
