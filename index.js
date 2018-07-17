@@ -45,7 +45,7 @@ function fixKeys(json) {
 bot.on('error', (e) => console.error(e));
 bot.on('warn', (e) => console.warn(e));
 
-
+// When a new server gets added
 bot.on('guildCreate', guild => {
     console.log(`New guild added ${guild.name}, (guilds id is ${guild.id}). The guild added  has ${guild.memberCount} members!`);
 
@@ -57,7 +57,11 @@ bot.on('guildCreate', guild => {
 :arrow_right: When using the METAR, TAF, ICAO and NOTAM commands please give an **ICAO** for it to work, an **ICAO is always 4 letters** if it's a civil airport!
 
 *Best regards, Siaff#3293.*`);
-    });
+});
+
+bot.on('guildDelete', guild => {
+    console.log(`Guild removed ${guild.name}, id is ${guild.id}.`);
+})
 
 // Logging and actions when bot is ready to use.
 bot.on('ready', () => {
