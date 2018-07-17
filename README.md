@@ -1,5 +1,16 @@
-<h1> Dun-Dunv2 <a href="https://discordbots.org/bot/436406106013827072"><img src="https://discordbots.org/api/widget/status/436406106013827072.svg" alt="Dun-Dunv2" /></a></h1>
-Dun-Dunv2 is a small Aviation Bot that is mostly focused on getting live weather as TAF & METAR but also got things like live NOTAMs for every airport.
+<h1> Dun-Dunv2 <a href="https://discordbots.org/bot/436406106013827072" >
+  <img src="https://discordbots.org/api/widget/status/436406106013827072.svg" alt="Dun-Dunv2" />
+</a>
+<a href="https://discordbots.org/bot/436406106013827072" >
+  <img src="https://discordbots.org/api/widget/servers/436406106013827072.svg?noavatar=true" alt="Dun-Dunv2" />
+</a>
+<a href="https://discordbots.org/bot/436406106013827072" >
+  <img src="https://discordbots.org/api/widget/upvotes/436406106013827072.svg?noavatar=true" alt="Dun-Dunv2" />
+</a>
+</h1>
+
+
+<br>Dun-Dunv2 is a small Aviation Bot that is mostly focused on getting live weather as TAF & METAR but also got things like live NOTAMs for every airport.
 
 If you want anything else to be added to Dun-Dunv2 just contact <b>Siaff#3293</b> or 
 <a href='https://discord.gg/wf64e98'>join the support server by clicking here!</a>
