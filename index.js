@@ -20,7 +20,7 @@ const prefix = '+';
 // By using moment we get the Zulu time.
 let time = moment.utc();
 let timeform = time.format('YYYY-MM-DD HH:mm:ss Z');
-let timeform2 = time.format('HH:mm:ss Z');
+let timeform2 = time.format('HH:mm:ss');
 let timeform3 = time.format('DD/MM HH:mm');
 
     // Console loggers for when the bot connects.
@@ -136,7 +136,7 @@ ${json.RawReport}
             .addBlankField(true)
             .addBlankField(true)
             .addField('Time of Report', `${json.Meta.Timestamp}`, true)
-            .setFooter(`Requested at ${timeform2}`);
+            .setFooter(`Requested at ${timeform2} UTC`);
         message.channel.send(METAREmbed);
     }
 
@@ -171,8 +171,8 @@ ${json.RawReport}
             .setColor([99, 154, 210])
             .addField('Notam', `${result[0].notams[1]}`, true)
             // message.channel.send(`\`\`\`${result[0].notams[1]} \`\`\``);
-            message.channel.send(notamEmbed);
             message.channel.stopTyping(true);
+            message.channel.send(notamEmbed);
         });
     }
 
@@ -191,7 +191,7 @@ ${json.RawReport}
     // Ping Command to check connection.
     if (cmd == `${prefix}ping`) {
         console.log(`Pong! For ${message.author.tag}`);
-        const editMsg = await message.channel.send('Why would you ping me?');
+        let editMsg = await message.channel.send('Why would you ping me?');
         let pingEmbed = new Discord.RichEmbed()
             .setTitle('🏓 Pong!')
             .setColor([53, 254, 75])
