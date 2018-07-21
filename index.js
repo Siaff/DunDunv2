@@ -126,11 +126,16 @@ ${json.RawReport}
             // .addField('Visibility', `${json.Translations.Visibility}`, true)
             // .addField('Wind', `${json.WindDirection} at ${json.WindSpeed} ${json.Units.WindSpeed}`, true)
             // .addField('Clouds:', `${json.Translations.Clouds}`, true)
-            .addField('Time of Report', `${json.Meta.Timestamp}`, true)
             .addField('Temperature:', `${json.Translations.Temperature}`, true)
             .addField('Dewpoint:', `${json.Translations.Dewpoint}`, true)
+            .addBlankField(true)
             .addField('QNH:', `${json.Translations.Altimeter}`, true)
+            .addBlankField(true)
+            .addBlankField(true)
             .addField('Remarks:', `${json.Remarks}` || 'NOSIG', true)
+            .addBlankField(true)
+            .addBlankField(true)
+            .addField('Time of Report', `${json.Meta.Timestamp}`, true)
             .setFooter(`Requested at ${timeform2}`);
         message.channel.send(METAREmbed);
     }
