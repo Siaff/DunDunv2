@@ -15,7 +15,7 @@ dbl.on('error', e => {
 });
 
 // Prefix
-const prefix = '.';
+const prefix = '+';
 
 // By using moment we get the Zulu time.
 let time = moment.utc();
