@@ -15,7 +15,7 @@ dbl.on('error', e => {
 });
 
 // Prefix
-const prefix = '+';
+const prefix = '.';
 
 // By using moment we get the Zulu time.
 let time = moment.utc();
@@ -107,6 +107,17 @@ bot.on('message', async message => {
         let response = await fetch(reqURL);
         let json = fixKeys(await response.json());
         let optText = (truthy, ifTrue, ifFalse = '') => truthy ? ifTrue : ifFalse;
+        if (json.Error) {
+            let METARErrorEmbed = new Discord.RichEmbed()
+            .setTitle(`${argz} is not a valid ICAO`)
+            .addField('Quick Tip:', 'ICAOs almost always have four letters', true)
+            .addBlankField(true)
+            .addField('Example:', 'One example is **EKCH** for Copenhagen Airport', true)
+            .setColor([255, 0, 0]);
+            console.log('Oop, someone fucked up!');
+            message.channel.stopTyping(true);
+            return message.channel.send(METARErrorEmbed);
+        }
         message.channel.stopTyping(true);
         let METAREmbed = new Discord.RichEmbed()
             .setTitle(`${json.Info.City}, ${json.Info.Name} – ${json.Info.ICAO}`)
@@ -150,12 +161,23 @@ ${json.RawReport}
         let response = await fetch(reqURL);
         let json = fixKeys(await response.json());
         let optText = (truthy, ifTrue, ifFalse = '') => truthy ? ifTrue : ifFalse;
+        if (json.Error) {
+            let TAFErrorEmbed = new Discord.RichEmbed()
+                .setTitle(`${argz} is not a valid ICAO`)
+                .addField('Quick Tip:', 'ICAOs almost always have four letters', true)
+                .addBlankField(true)
+                .addField('Example:', 'One example is **EKCH** for Copenhagen Airport', true)
+                .setColor([255, 0, 0]);
+            console.log('Oop someone fucked up.');
+            message.channel.stopTyping(true);
+            return message.channel.send(TAFErrorEmbed);
+        }
         message.channel.stopTyping(true);
         let TAFEmbed = new Discord.RichEmbed()
             .setTitle(`TAF for ${json.Station}`)
             .setColor([99, 154, 210])
-            .addField('Raw Report', `${json.RawReport}`, true)
-            .addBlankField(true)
+            .setDescription(`Raw Report:
+${json.RawReport}`)
             .addField('Readable', `${json.Forecast[0].Summary}`, true)
         message.channel.send(TAFEmbed);
     }
@@ -167,10 +189,9 @@ ${json.RawReport}
         message.channel.startTyping(true)
         notams(`${argz}`, { format: 'DOMESTIC' }).then(result => {
             let notamEmbed = new Discord.RichEmbed()
-            .setTitle(`${result[0].icao}'s NOTAMs`)
-            .setColor([99, 154, 210])
-            .addField('Notam', `${result[0].notams[1]}`, true)
-            // message.channel.send(`\`\`\`${result[0].notams[1]} \`\`\``);
+                .setTitle(`${result[0].icao}'s NOTAMs`)
+                .setColor([99, 154, 210])
+                .addField('Notam', `${result[0].notams[1]}`, true)
             message.channel.stopTyping(true);
             message.channel.send(notamEmbed);
         });
@@ -209,10 +230,10 @@ ${json.RawReport}
         let seconds = totalSeconds % 60;
         let days = Math.floor(totalSeconds / 86400);
         let uptimeEmbed = new Discord.RichEmbed()
-        .setTitle('Dun-Duns Uptime')
-        .setColor([101, 244, 66])
-        .setDescription(`\`\`\`${days} Days, ${hours} hrs, ${minutes} mins, ${~~seconds} secs.\`\`\``)
-        .setFooter('Wowie, maybe this is the longest time ol\' Dun-Dun has been up?!?!?!!');
+            .setTitle('Dun-Duns Uptime')
+            .setColor([101, 244, 66])
+            .setDescription(`\`\`\`${days} Days, ${hours} hrs, ${minutes} mins, ${~~seconds} secs.\`\`\``)
+            .setFooter('Wowie, maybe this is the longest time ol\' Dun-Dun has been up?!?!?!!');
         console.log(`Uptime: ${hours}, ${minutes}, ${~~seconds} by ${message.author.tag}`);
         message.channel.send(uptimeEmbed);
     }
@@ -221,14 +242,14 @@ ${json.RawReport}
     if (cmd == `${prefix}info`) {
         console.log(`Info for ${message.author.tag}`);
         let infoEmbed = new Discord.RichEmbed()
-        .setTitle('Dun-Dun Information.')
-        .setColor([55, 213, 252])
-        .setDescription('Dun-Dun is a small Aviation bot that is mostly focused around weather (METAR & TAF) but also NOTAMs. Dun-Dunv2 is made in discord.js 11.3.2.')
-        .addField('Prefix', '+', true)
-        .addField('Getting started', '+help', true)
-        .addField('Join the support server!', '[By clicking here!](https://discord.gg/wf64e98)', true)
-        .addField('Or invite the bot!', '[By clicking here!](https://discordapp.com/oauth2/authorize?client_id=436406106013827072&permissions=37219392&scope=bot)', true)
-        .setFooter('Bot made by Siaff#3293');
+            .setTitle('Dun-Dun Information.')
+            .setColor([55, 213, 252])
+            .setDescription('Dun-Dun is a small Aviation bot that is mostly focused around weather (METAR & TAF) but also NOTAMs. Dun-Dunv2 is made in discord.js 11.3.2.')
+            .addField('Prefix', '+', true)
+            .addField('Getting started', '+help', true)
+            .addField('Join the support server!', '[By clicking here!](https://discord.gg/wf64e98)', true)
+            .addField('Or invite the bot!', '[By clicking here!](https://discordapp.com/oauth2/authorize?client_id=436406106013827072&permissions=37219392&scope=bot)', true)
+            .setFooter('Bot made by Siaff#3293');
         message.channel.send(infoEmbed);
     }
 
@@ -236,32 +257,32 @@ ${json.RawReport}
     if (cmd == `${prefix}help`) {
         console.log('Helping ' + message.author.tag);
         let helpEmbed = new Discord.RichEmbed()
-        .setTitle('Dun-Dun to the rescue!')
-        .setColor([43, 43, 255])
-        .addField('+help', 'This command...', true)
-        .addBlankField(true)
-        .addField('+info', 'Gives some information about the bot.', true)
-        .addField('+metar [ICAO]', 'Example \'+metar EKCH\'. Gives you live METAR of any airport.', true)
-        .addField('+taf [ICAO]', 'Example \"+metar EKC\". Gives you live TAF of any airport.', true)
-        .addField('+notam [ICAO]', 'Example \"+notam EKCH\". Gives you live NOTAMs of any airport', true)
-        .addField('+icao [ICAO]', 'If you supply an ICAO after the command it will give the Airports name.', true)
-        .addField('+utc', 'Gives you the UTC time in a 24-hour format.', true)
-        .addField('+invite', 'Gives you a link to invite the bot, also an invite to the Dun-Dunv2 support server.', true)
-        .addField('+uptime', 'Gives you the uptime of the bot.', true)
-        .addBlankField(true)
-        .addField('+ping', 'Pings the bot and gives you the bots ping.', true)
-        .setFooter(`Requested by ${message.author.tag}`);
+            .setTitle('Dun-Dun to the rescue!')
+            .setColor([43, 43, 255])
+            .addField('+help', 'This command...', true)
+            .addBlankField(true)
+            .addField('+info', 'Gives some information about the bot.', true)
+            .addField('+metar [ICAO]', 'Example \'+metar EKCH\'. Gives you live METAR of any airport.', true)
+            .addField('+taf [ICAO]', 'Example \"+metar EKC\". Gives you live TAF of any airport.', true)
+            .addField('+notam [ICAO]', 'Example \"+notam EKCH\". Gives you live NOTAMs of any airport', true)
+            .addField('+icao [ICAO]', 'If you supply an ICAO after the command it will give the Airports name.', true)
+            .addField('+utc', 'Gives you the UTC time in a 24-hour format.', true)
+            .addField('+invite', 'Gives you a link to invite the bot, also an invite to the Dun-Dunv2 support server.', true)
+            .addField('+uptime', 'Gives you the uptime of the bot.', true)
+            .addBlankField(true)
+            .addField('+ping', 'Pings the bot and gives you the bots ping.', true)
+            .setFooter(`Requested by ${message.author.tag}`);
         message.channel.send(helpEmbed);
     }
 
     if (cmd == `${prefix}invite`) {
         console.log(`Sent an invite to ${message.author.tag}`);
         let inviteEmbed = new Discord.RichEmbed()
-        .setTitle('Want me in your server?')
-        .setColor([74, 216, 126])
-        .addField('Invite link:', '[Click here to invite the Bot!](https://discordapp.com/oauth2/authorize?client_id=436406106013827072&permissions=37219392&scope=bot)', true)
-        .addBlankField(true)
-        .addField('Support server:', '[Click here for Support Server!](https://discord.gg/wf64e98)', true)
+            .setTitle('Want me in your server?')
+            .setColor([74, 216, 126])
+            .addField('Invite link:', '[Click here to invite the Bot!](https://discordapp.com/oauth2/authorize?client_id=436406106013827072&permissions=37219392&scope=bot)', true)
+            .addBlankField(true)
+            .addField('Support server:', '[Click here for Support Server!](https://discord.gg/wf64e98)', true)
         message.channel.send(inviteEmbed);
     }
 
@@ -275,8 +296,8 @@ ${json.RawReport}
         console.log(`Purged ${args} messages. Purge done by: ${message.author.tag}`);	
         let argz = Number(args);	
         message.channel.bulkDelete(argz + 1)
-        .then(messages => message.channel.send(`**Successfully deleted \`${messages.size - 1}/${args[0]}\` messages**`)	
-        .then(message => message.delete(10000)));	
+            .then(messages => message.channel.send(`**Successfully deleted \`${messages.size - 1}/${args[0]}\` messages**`)	
+            .then(message => message.delete(10000)));	
     }
     
     if (cmd == `${prefix}users`) {
