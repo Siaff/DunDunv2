@@ -205,6 +205,16 @@ ${json.RawReport}`)
         let reqURL = `https://avwx.rest/api/metar/${argz}?options=info,translate,speech`;
         let response = await fetch(reqURL);
         let json = fixKeys(await response.json());
+        if (json.Error) {
+            let ICAOErrorEmbed = new Discord.RichEmbed()
+                .setTitle(`${argz} is not a valid ICAO`)
+                .addField('Quick Tip:', 'ICAOs almost always have four letters', true)
+                .addBlankField(true)
+                .addField('Example:', 'One example is **EKCH** for Copenhagen Airport', true)
+                .setColor([255, 0, 0]);
+                console.log('Oop someone fucked up');
+            return message.channel.send(ICAOErrorEmbed)
+        }
         let optText = (truthy, ifTrue, ifFalse = "") => truthy ? ifTrue : ifFalse;
         message.channel.send(`${json.Info.ICAO}'s full name is \`\`${json.Info.Name}\`\``);
     }
