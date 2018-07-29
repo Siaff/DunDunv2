@@ -115,7 +115,7 @@ bot.on('message', async message => {
             .addField('Example:', 'One example is **EKCH** for Copenhagen Airport', true)
             .setColor([255, 0, 0]);
             console.log('Oop, someone fucked up!');
-            await message.channel.stopTyping(true);
+            message.channel.stopTyping(true);
             return message.channel.send(METARErrorEmbed);
         }
         let METAREmbed = new Discord.RichEmbed()
@@ -147,7 +147,7 @@ ${json.RawReport}
             .addBlankField(true)
             .addField('Time of Report', `${json.Meta.Timestamp}`, true)
             .setFooter(`Requested at ${timeform2} UTC`);
-        await message.channel.stopTyping(true);
+        message.channel.stopTyping(true);
         return message.channel.send(METAREmbed);
     }
 
@@ -169,7 +169,7 @@ ${json.RawReport}
                 .addField('Example:', 'One example is **EKCH** for Copenhagen Airport', true)
                 .setColor([255, 0, 0]);
             console.log('Oop someone fucked up.');
-            await message.channel.stopTyping(true);
+            message.channel.stopTyping(true);
             return message.channel.send(TAFErrorEmbed);
         }
         message.channel.stopTyping(true);
@@ -192,7 +192,7 @@ ${json.RawReport}`)
                 .setTitle(`${result[0].icao}'s NOTAMs`)
                 .setColor([99, 154, 210])
                 .addField('Notam', `${result[0].notams[1]}`, true)
-            await message.channel.stopTyping(true);
+            message.channel.stopTyping(true);
             return message.channel.send(notamEmbed);
         });
     }
