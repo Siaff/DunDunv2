@@ -115,10 +115,9 @@ bot.on('message', async message => {
             .addField('Example:', 'One example is **EKCH** for Copenhagen Airport', true)
             .setColor([255, 0, 0]);
             console.log('Oop, someone fucked up!');
-            message.channel.stopTyping(true);
+            await message.channel.stopTyping(true);
             return message.channel.send(METARErrorEmbed);
         }
-        message.channel.stopTyping(true);
         let METAREmbed = new Discord.RichEmbed()
             .setTitle(`${json.Info.City}, ${json.Info.Name} – ${json.Info.ICAO}`)
             .setColor([93, 233, 235])
@@ -148,7 +147,8 @@ ${json.RawReport}
             .addBlankField(true)
             .addField('Time of Report', `${json.Meta.Timestamp}`, true)
             .setFooter(`Requested at ${timeform2} UTC`);
-        message.channel.send(METAREmbed);
+        await message.channel.stopTyping(true);
+        return message.channel.send(METAREmbed);
     }
 
     // TAF Command
@@ -169,7 +169,7 @@ ${json.RawReport}
                 .addField('Example:', 'One example is **EKCH** for Copenhagen Airport', true)
                 .setColor([255, 0, 0]);
             console.log('Oop someone fucked up.');
-            message.channel.stopTyping(true);
+            await message.channel.stopTyping(true);
             return message.channel.send(TAFErrorEmbed);
         }
         message.channel.stopTyping(true);
@@ -192,8 +192,8 @@ ${json.RawReport}`)
                 .setTitle(`${result[0].icao}'s NOTAMs`)
                 .setColor([99, 154, 210])
                 .addField('Notam', `${result[0].notams[1]}`, true)
-            message.channel.stopTyping(true);
-            message.channel.send(notamEmbed);
+            await message.channel.stopTyping(true);
+            return message.channel.send(notamEmbed);
         });
     }
 
