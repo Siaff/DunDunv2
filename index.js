@@ -132,10 +132,6 @@ ${json.RawReport}
 **Visibility:** ${json.Translations.Visibility}     **Wind:** ${json.WindDirection} at ${json.WindSpeed} ${json.Units.WindSpeed}
 
 **Clouds:** ${json.Translations.Clouds}`)
-            // .addField('Flight Rule:', `${json.FlightRules}`, true)
-            // .addField('Visibility', `${json.Translations.Visibility}`, true)
-            // .addField('Wind', `${json.WindDirection} at ${json.WindSpeed} ${json.Units.WindSpeed}`, true)
-            // .addField('Clouds:', `${json.Translations.Clouds}`, true)
             .addField('Temperature:', `${json.Translations.Temperature}`, true)
             .addField('Dewpoint:', `${json.Translations.Dewpoint}`, true)
             .addBlankField(true)
