@@ -23,7 +23,7 @@ let timeform = time.format('YYYY-MM-DD HH:mm:ss Z');
 let timeform2 = time.format('HH:mm:ss');
 let timeform3 = time.format('DD/MM HH:mm');
 
-    // Console loggers for when the bot connects.
+    // Console loggers for when the bot is connecting.
     console.log('– - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
     console.log('Connecting...');
 
@@ -107,6 +107,9 @@ bot.on('message', async message => {
         let response = await fetch(reqURL);
         let json = fixKeys(await response.json());
         let optText = (truthy, ifTrue, ifFalse = '') => truthy ? ifTrue : ifFalse;
+        if (!gucci){
+            return; // No gucci );
+        }
         if (json.Error) {
             let METARErrorEmbed = new Discord.RichEmbed()
             .setTitle(`${argz} is not a valid ICAO`)
@@ -294,7 +297,9 @@ ${json.RawReport}`)
     // Purge Command up to a 100.	
     if(cmd == `${prefix}purge`) {
         // Checks server id. So it only works in Unga Flygare.
-        if (message.guild.id != '380414605744275456') return message.channel.send('Shhhh, this only works in Siaffs private server!');
+        if (!message.author.id === '275701228422299648' || !message.author.id === '332956757800517640' || !message.author.id === '333305132739723275') {
+            return message.channel.send('How do you know about this?!?!?!');
+        }
         if (isNaN(args)) return message.channel.send('**Please supply a valid amount of messages to purge**');	
         if (args > 100) return message.channel.send('**Please supply a number less than 100**');	
         // Logging	
@@ -307,8 +312,25 @@ ${json.RawReport}`)
     
     if (cmd == `${prefix}users`) {
         console.log(`User checked by ${message.author.tag}`);
-        if (message.guild.id != '380414605744275456') return message.channel.send('Shhhh, this only works in Siaffs private server!');
+        if (!message.author.id === '275701228422299648' || !message.author.id === '332956757800517640' || !message.author.id === '333305132739723275') {
+            return message.channel.send('How do you know about this?!?!?!');
+        }
         let usersEmbed = new Discord.RichEmbed()
+            .setTitle(`The bot currently has ${bot.users.size} users`)
+            .setColor([54, 57, 62]);
+        message.channel.send(usersEmbed);
+    }
+
+    
+    if (cmd == `${prefix}guilds`) {
+        console.log(`Guilds checked by ${message.author.tag}`)
+        if (!message.author.id === '275701228422299648' || !message.author.id === '332956757800517640' || !message.author.id === '333305132739723275') {
+            return message.channel.send('How do you know about this?!?!?!');
+        }
+        let guildEmbed = new Discord.RichEmbed()
+            .setTitle(`The bot currently has ${bot.guilds.size} guilds`)
+            .setColor([54, 57, 62]);
+        message.channel.send(guildEmbed);
     }
 
     if (cmd == `${prefix}utc`) {
