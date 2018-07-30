@@ -234,11 +234,10 @@ ${json.RawReport}`)
         totalSeconds %= 3600;
         let minutes = Math.floor(totalSeconds / 60);
         let seconds = totalSeconds % 60;
-        let days = Math.floor(totalSeconds / 86400);
         let uptimeEmbed = new Discord.RichEmbed()
             .setTitle('Dun-Duns Uptime')
             .setColor([101, 244, 66])
-            .setDescription(`\`\`\`${days} Days, ${hours} hrs, ${minutes} mins, ${~~seconds} secs.\`\`\``)
+            .setDescription(`\`\`\`${hours} hrs, ${minutes} mins, ${~~seconds} secs.\`\`\``)
             .setFooter('Wowie, maybe this is the longest time ol\' Dun-Dun has been up?!?!?!!');
         console.log(`Uptime: ${hours}, ${minutes}, ${~~seconds} by ${message.author.tag}`);
         message.channel.send(uptimeEmbed);
