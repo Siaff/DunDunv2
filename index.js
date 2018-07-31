@@ -47,7 +47,7 @@ bot.on('warn', (e) => console.warn(e));
 
 // When a new server gets added
 bot.on('guildCreate', guild => {
-    console.log(`New guild added ${guild.name}, (guilds id is ${guild.id}). The guild added  has ${guild.memberCount} members!`);
+    console.log(`New guild added ${guild.name}, (guilds id is ${guild.id}). The guild added has ${guild.memberCount} members!`);
 
     // Join message
     guild.channels.filter(c => c.type === 'text').first().send(`Greetings and thank you for choosing Dun-Dunv2 <:NoToA350:465991428628152380>
@@ -56,11 +56,11 @@ bot.on('guildCreate', guild => {
 :arrow_right: To get all the commands do **+help**
 :arrow_right: When using the METAR, TAF, ICAO and NOTAM commands please give an **ICAO** for it to work, an **ICAO is always 4 letters** if it's a civil airport!
 
-*Best regards, Siaff#3293.*`);
+*Best regards, Siaff#3293.*`).then(console.log(`Sent Hello Message to ${guild.name}.`));
 });
 
 bot.on('guildDelete', guild => {
-    console.log(`Guild removed ${guild.name}, id is ${guild.id}.`);
+    console.log(`Guild removed ${guild.name}, id is ${guild.id}. User size is now ${bot.users.size}`);
 })
 
 // Logging and actions when bot is ready to use.
