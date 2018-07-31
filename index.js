@@ -107,9 +107,9 @@ bot.on('message', async message => {
         let response = await fetch(reqURL);
         let json = fixKeys(await response.json());
         let optText = (truthy, ifTrue, ifFalse = '') => truthy ? ifTrue : ifFalse;
-        if (!gucci){
-            return; // No gucci );
-        }
+        // if (!gucci){
+        //     return; // No gucci );
+        // }
         if (json.Error) {
             let METARErrorEmbed = new Discord.RichEmbed()
             .setTitle(`${argz} is not a valid ICAO`)
