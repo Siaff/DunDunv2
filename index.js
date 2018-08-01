@@ -132,7 +132,8 @@ ${json.RawReport}
 
 **Flight Rule:** ${json.FlightRules}
 
-**Visibility:** ${json.Translations.Visibility}     **Wind:** ${json.WindDirection} at ${json.WindSpeed} ${json.Units.WindSpeed}
+**Visibility:** ${json.Translations.Visibility}     
+**Wind:** ${json.WindDirection} at ${json.WindSpeed} ${json.Units.WindSpeed}
 
 **Clouds:** ${json.Translations.Clouds}`)
             .addField('Temperature:', `${json.Translations.Temperature}`, true)
