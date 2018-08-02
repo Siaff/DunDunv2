@@ -15,7 +15,7 @@ dbl.on('error', e => {
 });
 
 // Prefix
-const prefix = '+';
+const prefix = '!';
 
 // By using moment we get the Zulu time.
 let time = moment.utc();
@@ -179,6 +179,7 @@ ${json.RawReport}
             .setDescription(`Raw Report:
 ${json.RawReport}`)
             .addField('Readable', `${json.Forecast[0].Summary}`, true)
+            .setFooter('This is not a source for official weather briefing. Please obtain a weather briefing from the appropriate agency.');
         message.channel.send(TAFEmbed);
     }
 
@@ -191,8 +192,10 @@ ${json.RawReport}`)
             let notamEmbed = new Discord.RichEmbed()
                 .setTitle(`${result[0].icao}'s NOTAMs`)
                 .setColor([99, 154, 210])
-                .addField('Notam', `${result[0].notams[1]}`, true)
+                .setDescription(`${result[0].notams[1]}`)
+                .setFooter('This is not a source for official weather briefing. Please obtain a weather briefing from the appropriate agency.');
             message.channel.stopTyping(true);
+            console.log(result[0].notams);
             return message.channel.send(notamEmbed);
         });
     }
