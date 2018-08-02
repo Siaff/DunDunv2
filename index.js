@@ -95,6 +95,13 @@ bot.on('message', async message => {
     let args = msgArr.slice(1);
     // let cmd = cm.map(e=>e.toLowerCase());
 
+    // Special code for r/flying's Discord Server
+    if (message.guild.id == '379051048129789953') {
+        if(message.channel.id != '383128744115830785') {
+            return console.log('Wrong');
+        }
+    }
+    
     // Here comes the commands!
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // Metar Command
@@ -195,7 +202,6 @@ ${json.RawReport}`)
                 .setDescription(`${result[0].notams[1]}`)
                 .setFooter('This is not a source for official weather briefing. Please obtain a weather briefing from the appropriate agency.');
             message.channel.stopTyping(true);
-            console.log(result[0].notams);
             return message.channel.send(notamEmbed);
         });
     }
