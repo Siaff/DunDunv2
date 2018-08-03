@@ -15,7 +15,7 @@ dbl.on('error', e => {
 });
 
 // Prefix
-const prefix = '!';
+const prefix = '+';
 
 // By using moment we get the Zulu time.
 let time = moment.utc();
@@ -200,7 +200,7 @@ ${json.RawReport}`)
                 .setTitle(`${result[0].icao}'s NOTAMs`)
                 .setColor([99, 154, 210])
                 .setDescription(`${result[0].notams[1]}`)
-                .setFooter('This is not a source for official weather briefing. Please obtain a weather briefing from the appropriate agency.');
+                .setFooter('This is not a source for official briefing. Please use the appropriate forums.');
             message.channel.stopTyping(true);
             return message.channel.send(notamEmbed);
         });
@@ -281,7 +281,7 @@ ${json.RawReport}`)
             .addBlankField(true)
             .addField('+info', 'Gives some information about the bot.', true)
             .addField('+metar [ICAO]', 'Example \'+metar EKCH\'. Gives you live METAR of any airport.', true)
-            .addField('+taf [ICAO]', 'Example \"+metar EKC\". Gives you live TAF of any airport.', true)
+            .addField('+taf [ICAO]', 'Example \"+metar EKCH\". Gives you live TAF of any airport.', true)
             .addField('+notam [ICAO]', 'Example \"+notam EKCH\". Gives you live NOTAMs of any airport', true)
             .addField('+icao [ICAO]', 'If you supply an ICAO after the command it will give the Airports name.', true)
             .addField('+utc', 'Gives you the UTC time in a 24-hour format.', true)
