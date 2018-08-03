@@ -230,6 +230,9 @@ ${json.RawReport}`)
 
     // Ping Command to check connection.
     if (cmd == `${prefix}ping`) {
+        if (!message.author.id === '275701228422299648' || !message.author.id === '332956757800517640' || !message.author.id === '333305132739723275') {
+            return message.channel.send('How do you know about this?!?!?!');
+        }
         console.log(`Pong! For ${message.author.tag}`);
         let editMsg = await message.channel.send('Why would you ping me?');
         let pingEmbed = new Discord.RichEmbed()
@@ -287,8 +290,6 @@ ${json.RawReport}`)
             .addField('+utc', 'Gives you the UTC time in a 24-hour format.', true)
             .addField('+invite', 'Gives you a link to invite the bot, also an invite to the Dun-Dunv2 support server.', true)
             .addField('+uptime', 'Gives you the uptime of the bot.', true)
-            .addBlankField(true)
-            .addField('+ping', 'Pings the bot and gives you the bots ping.', true)
             .setFooter(`Requested by ${message.author.tag}`);
         message.channel.send(helpEmbed);
     }
@@ -306,7 +307,7 @@ ${json.RawReport}`)
 
     // Purge Command up to a 100.	
     if(cmd == `${prefix}purge`) {
-        // Checks server id. So it only works in Unga Flygare.
+        // Checks User id so only my closest most lovely friends can do it.
         if (!message.author.id === '275701228422299648' || !message.author.id === '332956757800517640' || !message.author.id === '333305132739723275') {
             return message.channel.send('How do you know about this?!?!?!');
         }
