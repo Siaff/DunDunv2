@@ -20,7 +20,7 @@ const prefix = '+';
 // By using moment we get the Zulu time.
 let time = moment.utc();
 let timeform = time.format('YYYY-MM-DD HH:mm:ss Z');
-let timeform2 = time.format('HH:mm:ss');
+let timeform2 = time.format('HH:mm:ss'); // Not used atm.
 let timeform3 = time.format('DD/MM HH:mm');
 
     // Console loggers for when the bot is connecting.
@@ -118,15 +118,16 @@ bot.on('message', async message => {
         //     return; // No gucci );
         // }
         if (json.Error) {
-            let METARErrorEmbed = new Discord.RichEmbed()
-            .setTitle(`${argz} is not a valid ICAO`)
-            .addField('Quick Tip:', 'ICAOs almost always have four letters', true)
-            .addBlankField(true)
-            .addField('Example:', 'One example is **EKCH** for Copenhagen Airport', true)
-            .setColor([255, 0, 0]);
-            console.log('Oop, someone fucked up!');
+            let briefErrorEmbed = new Discord.RichEmbed()
+                .setTitle(`${argz} is not a valid ICAO`)
+                .setDescription('The bot might not be able to find it! The ICAO might not be in it\'s library or is not a valid ICAO')
+                .addField('Quick Tip:', 'ICAOs almost always have four letters', true)
+                .addBlankField(true)
+                .addField('Example:', 'One example is **EKCH** for Copenhagen Airport', true)
+                .setColor([255, 0, 0]);
+            console.log('Oop something fucked up')
             message.channel.stopTyping(true);
-            return message.channel.send(METARErrorEmbed);
+            return message.channel.send(briefErrorEmbed);
         }
         let METAREmbed = new Discord.RichEmbed()
             .setTitle(`${json.Info.City}, ${json.Info.Name} – ${json.Info.ICAO}`)
@@ -153,7 +154,7 @@ ${json.RawReport}
             .addBlankField(true)
             .addBlankField(true)
             .addField('Time of Report', `${json.Meta.Timestamp}`, true)
-            .setFooter(`Requested at ${timeform2} UTC`);
+            .setFooter(`This is not a source for official weather briefing. Please obtain a weather briefing from the appropriate agency.`);
         message.channel.stopTyping(true);
         return message.channel.send(METAREmbed);
     }
@@ -169,15 +170,16 @@ ${json.RawReport}
         let json = fixKeys(await response.json());
         let optText = (truthy, ifTrue, ifFalse = '') => truthy ? ifTrue : ifFalse;
         if (json.Error) {
-            let TAFErrorEmbed = new Discord.RichEmbed()
+            let briefErrorEmbed = new Discord.RichEmbed()
                 .setTitle(`${argz} is not a valid ICAO`)
+                .setDescription('The bot might not be able to find it! The ICAO might not be in it\'s library or is not a valid ICAO')
                 .addField('Quick Tip:', 'ICAOs almost always have four letters', true)
                 .addBlankField(true)
                 .addField('Example:', 'One example is **EKCH** for Copenhagen Airport', true)
                 .setColor([255, 0, 0]);
-            console.log('Oop someone fucked up.');
             message.channel.stopTyping(true);
-            return message.channel.send(TAFErrorEmbed);
+            console.log('Oop something fucked up')
+            return message.channel.send(briefErrorEmbed);
         }
         message.channel.stopTyping(true);
         let TAFEmbed = new Discord.RichEmbed()
@@ -206,6 +208,44 @@ ${json.RawReport}`)
         });
     }
 
+    // Breif command gives NOTAMS, TAF and METAR.
+    if (cmd == `${prefix}brief`) {
+        let argz = args.map(e=>e.toUpperCase());
+        console.log(`Briefing ${message.author.tag}, Airport: ${argz}`);
+        let METARReqURL = `https://avwx.rest/api/metar/${argz}?options=info,translate,speech`;
+        let TAFReqURL = `https://avwx.rest/api/taf/${argz}?options=summary`;
+        message.channel.startTyping(true);
+        let METARresponse = await fetch(METARReqURL);
+        let METARjson = fixKeys(await METARresponse.json());
+        let TAFresponse = await fetch(TAFReqURL);
+        let TAFjson = fixKeys(await TAFresponse.json());
+        let optText = (truthy, ifTrue, ifFalse = '') => truthy ? ifTrue : ifFalse;
+        if (METARjson.Error) {
+            let briefErrorEmbed = new Discord.RichEmbed()
+                .setTitle(`${argz} is not a valid ICAO`)
+                .setDescription('The bot might not be able to find it! The ICAO might not be in it\'s library or is not a valid ICAO')
+                .addField('Quick Tip:', 'ICAOs almost always have four letters', true)
+                .addBlankField(true)
+                .addField('Example:', 'One example is **EKCH** for Copenhagen Airport', true)
+                .setColor([255, 0, 0]);
+            console.log('Oop someone fucked up!');
+            message.channel.stopTyping(true);
+            return message.channel.send(briefErrorEmbed);
+        }
+        notams(`${argz}`, { format: 'DOMESTIC' }).then(result => {
+
+            let briefEmbed = new Discord.RichEmbed()
+                .setTitle(`Breif for ${METARjson.Station}`)
+                .addField('METAR', `${METARjson.RawReport}`, true)
+                .addField('TAF', `${TAFjson.RawReport}`, true)
+                .addField('NOTAM', `${result[0].notams[1]}`)
+                .setFooter('This is not a source for official briefing. Please use the appropriate forums.')
+                .setColor([135, 206, 250]);
+            message.channel.stopTyping(true);
+            return message.channel.send(breifEmbed); 
+        });
+    }
+
     // ICAO Command
     // https://avwx.rest/api/metar/EKCH?options=info,translate,speech
     if (cmd == `${prefix}icao`) {
@@ -215,14 +255,15 @@ ${json.RawReport}`)
         let response = await fetch(reqURL);
         let json = fixKeys(await response.json());
         if (json.Error) {
-            let ICAOErrorEmbed = new Discord.RichEmbed()
+            let briefErrorEmbed = new Discord.RichEmbed()
                 .setTitle(`${argz} is not a valid ICAO`)
+                .setDescription('The bot might not be able to find it! The ICAO might not be in it\'s library or is not a valid ICAO')
                 .addField('Quick Tip:', 'ICAOs almost always have four letters', true)
                 .addBlankField(true)
                 .addField('Example:', 'One example is **EKCH** for Copenhagen Airport', true)
                 .setColor([255, 0, 0]);
-                console.log('Oop someone fucked up');
-            return message.channel.send(ICAOErrorEmbed)
+            console.log('Oop something fucked up')
+            return message.channel.send(briefErrorEmbed);
         }
         let optText = (truthy, ifTrue, ifFalse = "") => truthy ? ifTrue : ifFalse;
         message.channel.send(`${json.Info.ICAO}'s full name is \`\`${json.Info.Name}\`\``);
@@ -284,12 +325,13 @@ ${json.RawReport}`)
             .addBlankField(true)
             .addField('+info', 'Gives some information about the bot.', true)
             .addField('+metar [ICAO]', 'Example \'+metar EKCH\'. Gives you live METAR of any airport.', true)
-            .addField('+taf [ICAO]', 'Example \"+metar EKCH\". Gives you live TAF of any airport.', true)
+            .addField('+taf [ICAO]', 'Example \"+taf EKCH\". Gives you live TAF of any airport.', true)
             .addField('+notam [ICAO]', 'Example \"+notam EKCH\". Gives you live NOTAMs of any airport', true)
-            .addField('+icao [ICAO]', 'If you supply an ICAO after the command it will give the Airports name.', true)
+            .addField('+breif [ICAO]', 'Example \"+breif EKCH\". Gives you METAR, TAF & NOTAMs of any aiport', true)
+            .addField('+icao [ICAO]', 'Example \"+icao EKCH\". If you supply an ICAO after the command it will give the Airports name.', true)
             .addField('+utc', 'Gives you the UTC time in a 24-hour format.', true)
             .addField('+invite', 'Gives you a link to invite the bot, also an invite to the Dun-Dunv2 support server.', true)
-            .addField('+uptime', 'Gives you the uptime of the bot.', true)
+            .addField('+uptime', 'Gives you the time that the bot has been online', true)
             .setFooter(`Requested by ${message.author.tag}`);
         message.channel.send(helpEmbed);
     }
