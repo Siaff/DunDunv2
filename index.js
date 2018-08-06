@@ -98,7 +98,7 @@ bot.on('message', async message => {
     // Special code for r/flying's Discord Server
     if (message.guild.id == '379051048129789953') {
         if(message.channel.id != '383128744115830785') {
-            return console.log('Wrong');
+            return;
         }
     }
     
@@ -242,7 +242,7 @@ ${json.RawReport}`)
                 .setFooter('This is not a source for official briefing. Please use the appropriate forums.')
                 .setColor([135, 206, 250]);
             message.channel.stopTyping(true);
-            return message.channel.send(breifEmbed); 
+            return message.channel.send(briefEmbed); 
         });
     }
 
