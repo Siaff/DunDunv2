@@ -3,11 +3,17 @@ const fetch = require('node-fetch');
 const moment = require('moment');
 const DBL = require('dblapi.js');
 const notams = require('notams');
+// Cheerio wip.
+// const cheerio = require('cheerio');
 
 // const fs = require('fs');
 const bot = new Discord.Client();
-const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNjQwNjEwNjAxMzgyNzA3MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTMwNjI1Nzg1fQ.b3jqwLoTxGjdgBk6LNjl2Y_MQSZixKzfVY9rsFuCrN0', bot);
+
+// For the ESTT command.
+// const $ = cheerio.load('https://data.soderslattsfk.se/estt-weather/ww4.php');
+
 // Server counts for discordbots website.
+const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNjQwNjEwNjAxMzgyNzA3MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTMwNjI1Nzg1fQ.b3jqwLoTxGjdgBk6LNjl2Y_MQSZixKzfVY9rsFuCrN0', bot);
 dbl.on('posted', () => {
 });
 dbl.on('error', e => {
@@ -91,8 +97,9 @@ bot.on('message', async message => {
 
     // Defining msg and args
     let msgArr = message.content.split(' ');
-    let cmd = msgArr[0];
     let args = msgArr.slice(1);
+    let cmdd = msgArr[0];
+    let cmd = cmdd.toLowerCase();
     // let cmd = cm.map(e=>e.toLowerCase());
 
     // Special code for r/flying's Discord Server
@@ -207,6 +214,16 @@ ${json.RawReport}`)
             return message.channel.send(notamEmbed);
         });
     }
+    // http://vau.aero/navdb/chart/ESMS.pdf
+    if (cmd == `${prefix}charts`) {
+        let argz = args.map(e=>e.toUpperCase());
+        console.log(`Giving charts to ${message.author.tag}, Airport: ${argz}`);
+        let chartsWebsiteLink = `http://vau.aero/navdb/chart/${argz}.pdf`;
+        let chartsEmbed = new Discord.RichEmbed()
+            .setDescription(`[Click here for ${argz} Charts](${chartsWebsiteLink})`)
+            .setColor([99, 154, 210])
+        message.channel.send(chartsEmbed);
+    }
 
     // Breif command gives NOTAMS, TAF and METAR.
     if (cmd == `${prefix}brief`) {
@@ -214,6 +231,7 @@ ${json.RawReport}`)
         console.log(`Briefing ${message.author.tag}, Airport: ${argz}`);
         let METARReqURL = `https://avwx.rest/api/metar/${argz}?options=info,translate,speech`;
         let TAFReqURL = `https://avwx.rest/api/taf/${argz}?options=summary`;
+        let chartsURL = `http://vau.aero/navdb/chart/${argz}.pdf`
         message.channel.startTyping(true);
         let METARresponse = await fetch(METARReqURL);
         let METARjson = fixKeys(await METARresponse.json());
@@ -233,12 +251,12 @@ ${json.RawReport}`)
             return message.channel.send(briefErrorEmbed);
         }
         notams(`${argz}`, { format: 'DOMESTIC' }).then(result => {
-
             let briefEmbed = new Discord.RichEmbed()
-                .setTitle(`Breif for ${METARjson.Station}`)
+                .setTitle(`Brief for ${METARjson.Station}`)
                 .addField('METAR', `${METARjson.RawReport}`, true)
                 .addField('TAF', `${TAFjson.RawReport}`, true)
-                .addField('NOTAM', `${result[0].notams[1]}`)
+                .addField('NOTAM', `${result[0].notams[1]}`, true)
+                .addField('Charts', `[Click here for ${argz} Charts](${chartsURL})`, true)
                 .setFooter('This is not a source for official briefing. Please use the appropriate forums.')
                 .setColor([135, 206, 250]);
             message.channel.stopTyping(true);
@@ -326,12 +344,13 @@ ${json.RawReport}`)
             .addField('+info', 'Gives some information about the bot.', true)
             .addField('+metar [ICAO]', 'Example \'+metar EKCH\'. Gives you live METAR of any airport.', true)
             .addField('+taf [ICAO]', 'Example \"+taf EKCH\". Gives you live TAF of any airport.', true)
-            .addField('+notam [ICAO]', 'Example \"+notam EKCH\". Gives you live NOTAMs of any airport', true)
-            .addField('+breif [ICAO]', 'Example \"+breif EKCH\". Gives you METAR, TAF & NOTAMs of any aiport', true)
+            .addField('+notam [ICAO]', 'Example \"+notam EKCH\". Gives you live NOTAMs of any airport.', true)
+            .addField('+charts [ICAO]', 'Example \”+charts EKCH\". Gives you up to date charts of chosen airport.', true)
+            .addField('+brief [ICAO]', 'Example \"+brief EKCH\". Gives you METAR, TAF & NOTAMs of any aiport.', true)
             .addField('+icao [ICAO]', 'Example \"+icao EKCH\". If you supply an ICAO after the command it will give the Airports name.', true)
             .addField('+utc', 'Gives you the UTC time in a 24-hour format.', true)
             .addField('+invite', 'Gives you a link to invite the bot, also an invite to the Dun-Dunv2 support server.', true)
-            .addField('+uptime', 'Gives you the time that the bot has been online', true)
+            .addField('+uptime', 'Gives you the time that the bot has been online.', true)
             .setFooter(`Requested by ${message.author.tag}`);
         message.channel.send(helpEmbed);
     }
@@ -394,6 +413,18 @@ ${json.RawReport}`)
             .setColor([101, 244, 66])
         message.channel.send(utcEmbed);
     }
+
+    // WIP ESTT command
+    // if (cmd == `${prefix}estt`) {
+    //     console.log(`${message.author.tag} check ESTT`);
+    //     const ESTTURL = 'https://data.soderslattsfk.se/estt-weather/ww4.php';
+    //     let ESTTResponse = await fetch(ESTTURL);
+    //     let ESTTHTMLResponse = await ESTTResponse.text()
+    //     const $ = cheerio.load(ESTTHTMLResponse);
+    //     let ESTTImage = $('img')[0].src;
+    //     console.log(ESTTImage)
+    //     message.channel.sendFile(ESTTImage, 'Cool_Image.png');
+    // }
 });
 
 // Login key for Dun Dunv2
