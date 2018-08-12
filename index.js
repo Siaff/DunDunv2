@@ -15,6 +15,9 @@ const bot = new Discord.Client();
 // Prefix
 const prefix = '+';
 
+
+// quicc
+
 // By using moment we get the Zulu time.
 let time = moment.utc();
 let timeform = time.format('YYYY-MM-DD HH:mm:ss Z');
