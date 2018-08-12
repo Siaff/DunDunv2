@@ -12,14 +12,6 @@ const bot = new Discord.Client();
 // For the ESTT command.
 // const $ = cheerio.load('https://data.soderslattsfk.se/estt-weather/ww4.php');
 
-// Server counts for discordbots website.
-const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNjQwNjEwNjAxMzgyNzA3MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTMwNjI1Nzg1fQ.b3jqwLoTxGjdgBk6LNjl2Y_MQSZixKzfVY9rsFuCrN0', bot);
-dbl.on('posted', () => {
-});
-dbl.on('error', e => {
-   console.log(`Oops! ${e}`);
-});
-
 // Prefix
 const prefix = '+';
 
@@ -256,6 +248,7 @@ ${json.RawReport}`)
                 .addField('METAR', `${METARjson.RawReport}`, true)
                 .addField('TAF', `${TAFjson.RawReport}`, true)
                 .addField('NOTAM', `${result[0].notams[1]}`, true)
+                .addBlankField(true)
                 .addField('Charts', `[Click here for ${argz} Charts](${chartsURL})`, true)
                 .setFooter('This is not a source for official briefing. Please use the appropriate forums.')
                 .setColor([135, 206, 250]);
@@ -427,5 +420,5 @@ ${json.RawReport}`)
     // }
 });
 
-// Login key for Dun Dunv2
-// Token Removed 
+// Login keys for Dun Dunv2
+// Tokens Removed 
