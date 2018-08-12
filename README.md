@@ -46,6 +46,7 @@ Dun-Dunv2 also has NOTAMS
 + taf     ––– Usage "+taf EKCH". If you supply the correct ICAO for your airport it will get the information that you requested.
 + notam   ––– Usage "+notam EKCH". If you supply a correct ICAO for your airport it will get the information that you requested.
 + icao    ––– Usage: "+icao EKCH". If you supply an ICAO for a airport it will give you the full name of the airport.
++ charts  ––– Usage: "+charts EKCH". IF you supply and ICAO for a airport it will give you the charts for that airport.
 + utc     ––– Gives you the UTC in a 24 hour format: Day/Month Time-24hour.
 + info    ––– Gives some basic information about the Bot.
 + help    ––– Shows a command like this with all the commands and also some information about them.
