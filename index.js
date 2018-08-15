@@ -12,6 +12,10 @@ const bot = new Discord.Client();
 // For the ESTT command.
 // const $ = cheerio.load('https://data.soderslattsfk.se/estt-weather/ww4.php');
 
+
+// Tokens
+// Removed
+
 // Prefix
 const prefix = '+';
 
@@ -43,16 +47,24 @@ function fixKeys(json) {
 bot.on('error', (e) => console.error(e));
 bot.on('warn', (e) => console.warn(e));
 
+// Discord bot website token.
+const dbl = new DBL(dblToken, bot);
+dbl.on('posted', () => {});
+dbl.on('error', e => {
+   console.log(`Oops! ${e}`);
+});
+
 // When a new server gets added
 bot.on('guildCreate', guild => {
     console.log(`New guild added ${guild.name}, (guilds id is ${guild.id}). The guild added has ${guild.memberCount} members!`);
 
     // Join message
-    guild.channels.filter(c => c.type === 'text').first().send(`Greetings and thank you for choosing Dun-Dunv2 <:NoToA350:465991428628152380>
+    guild.channels.filter(c => c.type === 'text').first().send(`Hello **${guild.name}** and Thank you for choosing Dun-Dunv2 <:DunDunv2_Pfp2:479071322543226880>
 :arrow_right: If you need any help with understand Dun-Dunv2 join the support server! https://discord.gg/wf64e98
 :arrow_right: If you want to get started do **+info**
 :arrow_right: To get all the commands do **+help**
-:arrow_right: When using the METAR, TAF, ICAO and NOTAM commands please give an **ICAO** for it to work, an **ICAO is always 4 letters** if it's a civil airport!
+:arrow_right: When using the METAR, TAF, ICAO, NOTAMs, Charts and Brief commands please give an **ICAO** for it to work, an **ICAO is always 4 letters** if it's a civil airport!
+:arrow_right: Or join an awesome real world aviation community, based on Reddit\'s /r/flying subreddit!. https://discord.gg/fAwyC7X
 
 *Best regards, Siaff#3293.*`).then(console.log(`Sent Hello Message to ${guild.name}.`));
 });
@@ -407,6 +419,37 @@ ${json.RawReport}`)
         message.channel.send(utcEmbed);
     }
 
+    // WIP Restart Command
+    // if (cmd == `${prefix}restart`) {
+    //     if (!message.author.id === '275701228422299648') return message.channel.send('**NO! HOW DARE YOU USE THIS COMMAND**');
+    //     console.log('Restarting… Command given by ' + message.author.tag);
+    //     let restartEmbed = new Discord.RichEmbed()
+    //         .setTitle('Restarting...')
+    //         .setColor([255, 0, 0]);
+    //     await message.channel.send(restartEmbed).then(message => bot.destroy())
+    //         .then(() => bot.login(dunDunToken)).then(message => { // Remember to change this Token here.
+    //         let newRestartEmbed = new Discord.RichEmbed()
+    //             .setTitle('Restart complete')
+    //             .setColor([0, 255, 0]);
+    //         bot.lastMessage.edit(newRestartEmbed)
+    //     })
+    // }
+
+    // // Comment out this!
+    // if (cmd == `${prefix}leave`) {
+    //     if (!message.author.id === '275701228422299648') return message.channel.send('No...');
+    //     let leaveEmbed = new Discord.RichEmbed()
+    //         .setTitle('Heck off then…') // Christian Server.
+    //         .setDescription('[Here if you\'ll take me back…](https://discordapp.com/oauth2/authorize?client_id=416693730490318848&permissions=8&scope=bot)')
+    //         .setColor([255, 0, 0]);
+    //     message.channel.send(leaveEmbed).then(message => message.guild.leave());
+    // }
+
+    // // Because why not have it ready…
+    // if (cmd == `${prefix}r/flying`) {
+    //     message.channel.send('https://discordapp.com/invite/wwMP5RU');
+    // }
+
     // WIP ESTT command
     // if (cmd == `${prefix}estt`) {
     //     console.log(`${message.author.tag} check ESTT`);
@@ -421,4 +464,4 @@ ${json.RawReport}`)
 });
 
 // Login keys for Dun Dunv2
-// Tokens Removed 
+bot.login(dunDunv2Token);
