@@ -163,7 +163,6 @@ ${json.RawReport}
             .addBlankField(true)
             .addField('Remarks:', `${json.Remarks}` || 'NOSIG', true)
             .addBlankField(true)
-            .addBlankField(true)
             .addField('Time of Report', `${json.Meta.Timestamp}`, true)
             .setFooter(`This is not a source for official weather briefing. Please obtain a weather briefing from the appropriate agency.`);
         message.channel.stopTyping(true);
@@ -260,7 +259,6 @@ ${json.RawReport}`)
                 .addField('METAR', `${METARjson.RawReport}`, true)
                 .addField('TAF', `${TAFjson.RawReport}`, true)
                 .addField('NOTAM', `${result[0].notams[1]}`, true)
-                .addBlankField(true)
                 .addField('Charts', `[Click here for ${argz} Charts](${chartsURL})`, true)
                 .setFooter('This is not a source for official briefing. Please use the appropriate forums.')
                 .setColor([135, 206, 250]);
