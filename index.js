@@ -163,6 +163,7 @@ ${json.RawReport}
             .addBlankField(true)
             .addField('Remarks:', `${json.Remarks}` || 'NOSIG', true)
             .addBlankField(true)
+            .addBlankField(true)
             .addField('Time of Report', `${json.Meta.Timestamp}`, true)
             .setFooter(`This is not a source for official weather briefing. Please obtain a weather briefing from the appropriate agency.`);
         message.channel.stopTyping(true);
