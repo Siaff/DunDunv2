@@ -104,15 +104,8 @@ bot.on('message', async message => {
     let args = msgArr.slice(1);
     let cmdd = msgArr[0];
     let cmd = cmdd.toLowerCase();
-    // let cmd = cm.map(e=>e.toLowerCase());
 
-    // Special code for r/flying's Discord Server
-    if (message.guild.id == '379051048129789953') {
-        if(message.channel.id != '383128744115830785') {
-            return;
-        }
-    }
-    
+
     // Here comes the commands!
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // Metar Command
