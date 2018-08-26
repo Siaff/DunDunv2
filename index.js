@@ -48,11 +48,11 @@ bot.on('error', (e) => console.error(e));
 bot.on('warn', (e) => console.warn(e));
 
 // Discord bot website token.
-const dbl = new DBL(dblToken, bot);
-dbl.on('posted', () => {});
-dbl.on('error', e => {
-   console.log(`Oops! ${e}`);
-});
+// const dbl = new DBL(dblToken, bot);
+// dbl.on('posted', () => {});
+// dbl.on('error', e => {
+//    console.log(`Oops! ${e}`);
+// });
 
 // When a new server gets added
 bot.on('guildCreate', guild => {
@@ -147,16 +147,14 @@ ${json.RawReport}
 **Visibility:** ${json.Translations.Visibility}     
 **Wind:** ${json.WindDirection} at ${json.WindSpeed} ${json.Units.WindSpeed}
 
-**Clouds:** ${json.Translations.Clouds}`)
-            .addField('Temperature:', `${json.Translations.Temperature}`, true)
-            .addField('Dewpoint:', `${json.Translations.Dewpoint}`, true)
-            .addBlankField(true)
-            .addField('QNH:', `${json.Translations.Altimeter}`, true)
-            .addBlankField(true)
-            .addBlankField(true)
-            .addField('Remarks:', `${json.Remarks}` || 'NOSIG', true)
-            .addBlankField(true)
-            .addBlankField(true)
+**Clouds:** ${json.Translations.Clouds}
+
+**Temperature:** ${json.Translations.Temperature}
+**Dewpoint:** ${json.Translations.Dewpoint}
+
+**QNH:** ${json.Translations.Altimeter}
+
+**Remarks:** ${json.Remarks}`)
             .addField('Time of Report', `${json.Meta.Timestamp}`, true)
             .setFooter(`This is not a source for official weather briefing. Please obtain a weather briefing from the appropriate agency.`);
         message.channel.stopTyping(true);
@@ -189,8 +187,7 @@ ${json.RawReport}
         let TAFEmbed = new Discord.RichEmbed()
             .setTitle(`TAF for ${json.Station}`)
             .setColor([99, 154, 210])
-            .setDescription(`Raw Report:
-${json.RawReport}`)
+            .setDescription(`${json.RawReport}`)
             .addField('Readable', `${json.Forecast[0].Summary}`, true)
             .setFooter('This is not a source for official weather briefing. Please obtain a weather briefing from the appropriate agency.');
         message.channel.send(TAFEmbed);
@@ -344,6 +341,7 @@ ${json.RawReport}`)
             .addField('+notam [ICAO]', 'Example \"+notam EKCH\". Gives you live NOTAMs of any airport.', true)
             .addField('+charts [ICAO]', 'Example \”+charts EKCH\". Gives you up to date charts of chosen airport.', true)
             .addField('+brief [ICAO]', 'Example \"+brief EKCH\". Gives you METAR, TAF & NOTAMs of any aiport.', true)
+            .addField('+raw [ICAO]', 'Example \"+raw EKCH\”. Gives you raw METAR & TAF of chosen airport.', true)
             .addField('+icao [ICAO]', 'Example \"+icao EKCH\". If you supply an ICAO after the command it will give the Airports name.', true)
             .addField('+utc', 'Gives you the UTC time in a 24-hour format.', true)
             .addField('+invite', 'Gives you a link to invite the bot, also an invite to the Dun-Dunv2 support server.', true)
@@ -456,4 +454,4 @@ ${json.RawReport}`)
 });
 
 // Login keys for Dun Dunv2
-bot.login(dunDunv2Token);
+bot.login(dunDunToken);
