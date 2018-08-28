@@ -48,11 +48,11 @@ bot.on('error', (e) => console.error(e));
 bot.on('warn', (e) => console.warn(e));
 
 // Discord bot website token.
-// const dbl = new DBL(dblToken, bot);
-// dbl.on('posted', () => {});
-// dbl.on('error', e => {
-//    console.log(`Oops! ${e}`);
-// });
+const dbl = new DBL(dblToken, bot);
+dbl.on('posted', () => {});
+dbl.on('error', e => {
+   console.log(`Oops! ${e}`);
+});
 
 // When a new server gets added
 bot.on('guildCreate', guild => {
@@ -258,6 +258,36 @@ ${json.RawReport}
         });
     }
 
+    // Raw Command. 
+    if (cmd == `${prefix}raw`) {
+        let argz = args.map(e=>e.toUpperCase());
+        console.log('Posting RAW for ' + message.author.tag + ' airport checked: ' + argz);
+        let rawLink = `https://avwx.rest/api/metar/${argz}?options=info,translate,speech`;
+        message.channel.startTyping(true);
+        let rawResponse = await fetch(rawLink);
+        let json = fixKeys(await rawResponse.json());
+        let optText = (truthy, ifTrue, ifFalse = '') => truthy ? ifTrue : ifFalse;
+        if (json.Error) {
+            let rawErrorEmbed = new Discord.RichEmbed()
+                .setTitle(`${argz} is not a valid ICAO`)
+                .setDescription('The bot might not be able to find it! The ICAO might not be in it\'s library or is not a valid ICAO')
+                .addField('Quick Tip:', 'ICAOs almost always have four letters', true)
+                .addBlankField(true)
+                .addField('Example:', 'One example is **EKCH** for Copenhagen Airport', true)
+                .setColor([255, 0, 0]);
+            console.log('Oop something fucked up')
+            message.channel.stopTyping(true);
+            return message.channel.send(rawErrorEmbed);
+        }
+        let rawEmbed = new Discord.RichEmbed()
+            .setTitle('Raw METAR for ' + argz)
+            .setDescription(json.RawReport) // For 2morrow when u arent dead inside...
+            .setColor([99, 154, 210]);
+        message.channel.stopTyping(true);
+        message.channel.send(rawEmbed);
+    }
+
+
     // ICAO Command
     // https://avwx.rest/api/metar/EKCH?options=info,translate,speech
     if (cmd == `${prefix}icao`) {
@@ -281,7 +311,7 @@ ${json.RawReport}
         message.channel.send(`${json.Info.ICAO}'s full name is \`\`${json.Info.Name}\`\``);
     }
 
-    // Ping Command to check connection.
+    // Ping Command.
     if (cmd == `${prefix}ping`) {
         if (!message.author.id === '275701228422299648' || !message.author.id === '332956757800517640' || !message.author.id === '333305132739723275') {
             return message.channel.send('How do you know about this?!?!?!');
@@ -350,6 +380,7 @@ ${json.RawReport}
         message.channel.send(helpEmbed);
     }
 
+    // Invite Command.
     if (cmd == `${prefix}invite`) {
         console.log(`Sent an invite to ${message.author.tag}`);
         let inviteEmbed = new Discord.RichEmbed()
@@ -361,7 +392,7 @@ ${json.RawReport}
         message.channel.send(inviteEmbed);
     }
 
-    // Purge Command up to a 100.	
+    // Purge Command up to a 100. (Private)
     if(cmd == `${prefix}purge`) {
         // Checks User id so only my closest most lovely friends can do it.
         if (!message.author.id === '275701228422299648' || !message.author.id === '332956757800517640' || !message.author.id === '333305132739723275') {
@@ -377,6 +408,7 @@ ${json.RawReport}
             .then(message => message.delete(10000)));	
     }
     
+    // Users Command (Private)
     if (cmd == `${prefix}users`) {
         console.log(`User checked by ${message.author.tag}`);
         if (!message.author.id === '275701228422299648' || !message.author.id === '332956757800517640' || !message.author.id === '333305132739723275') {
@@ -388,7 +420,7 @@ ${json.RawReport}
         message.channel.send(usersEmbed);
     }
 
-    
+    // Guild Command (Private)
     if (cmd == `${prefix}guilds`) {
         console.log(`Guilds checked by ${message.author.tag}`)
         if (!message.author.id === '275701228422299648' || !message.author.id === '332956757800517640' || !message.author.id === '333305132739723275') {
@@ -397,9 +429,10 @@ ${json.RawReport}
         let guildEmbed = new Discord.RichEmbed()
             .setTitle(`The bot currently has ${bot.guilds.size} guilds`)
             .setColor([54, 57, 62]);
-        message.channel.send(guildEmbed);
-    }
-
+            message.channel.send(guildEmbed);
+        }
+        
+    // UTC Command
     if (cmd == `${prefix}utc`) {
         console.log(`UTC given to ${message.author.tag}`);
         let utcEmbed = new Discord.RichEmbed()
@@ -409,6 +442,12 @@ ${json.RawReport}
         message.channel.send(utcEmbed);
     }
 
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // All the work that is WIP...                                            
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // WIP Restart Command
     // if (cmd == `${prefix}restart`) {
     //     if (!message.author.id === '275701228422299648') return message.channel.send('**NO! HOW DARE YOU USE THIS COMMAND**');
@@ -425,7 +464,7 @@ ${json.RawReport}
     //     })
     // }
 
-    // // Comment out this!
+    // // Comment out this! // Ty for the note.
     // if (cmd == `${prefix}leave`) {
     //     if (!message.author.id === '275701228422299648') return message.channel.send('No...');
     //     let leaveEmbed = new Discord.RichEmbed()
@@ -453,5 +492,5 @@ ${json.RawReport}
     // }
 });
 
-// Login keys for Dun Dunv2
+// Login key for Dun_Dunv2
 bot.login(dunDunToken);
