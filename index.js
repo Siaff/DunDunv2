@@ -4,14 +4,10 @@ const moment = require('moment');
 const DBL = require('dblapi.js');
 const notams = require('notams');
 // Cheerio wip.
-// const cheerio = require('cheerio');
+const cheerio = require('cheerio');
 
 // const fs = require('fs');
 const bot = new Discord.Client();
-
-// For the ESTT command.
-// const $ = cheerio.load('https://data.soderslattsfk.se/estt-weather/ww4.php');
-
 
 // Tokens
 // Removed
@@ -133,29 +129,35 @@ bot.on('message', async message => {
             message.channel.stopTyping(true);
             return message.channel.send(briefErrorEmbed);
         }
+//         let METAREmbed = new Discord.RichEmbed()
+//             .setTitle(`${json.Info.City}, ${json.Info.Name} – ${json.Info.ICAO}`)
+//             .setColor([93, 233, 235])
+//             .setDescription(`**Readable Report:**
+// ${json.Speech}
+
+// **Raw Report:**
+// ${json.RawReport}
+
+// **Flight Rule:** ${json.FlightRules}
+
+// **Visibility:** ${json.Translations.Visibility}     
+// **Wind:** ${json.WindDirection} at ${json.WindSpeed} ${json.Units.WindSpeed}
+
+// **Clouds:** ${json.Translations.Clouds}
+
+// **Temperature:** ${json.Translations.Temperature}
+// **Dewpoint:** ${json.Translations.Dewpoint}
+
+// **QNH:** ${json.Translations.Altimeter}
+
+// **Remarks:** ${json.Remarks}`)
+//             .addField('Time of Report', `${json.Meta.Timestamp}`, true)
+//             .setFooter(`This is not a source for official weather briefing. Please obtain a weather briefing from the appropriate agency.`);
         let METAREmbed = new Discord.RichEmbed()
             .setTitle(`${json.Info.City}, ${json.Info.Name} – ${json.Info.ICAO}`)
             .setColor([93, 233, 235])
-            .setDescription(`**Readable Report:**
-${json.Speech}
-
-**Raw Report:**
-${json.RawReport}
-
-**Flight Rule:** ${json.FlightRules}
-
-**Visibility:** ${json.Translations.Visibility}     
-**Wind:** ${json.WindDirection} at ${json.WindSpeed} ${json.Units.WindSpeed}
-
-**Clouds:** ${json.Translations.Clouds}
-
-**Temperature:** ${json.Translations.Temperature}
-**Dewpoint:** ${json.Translations.Dewpoint}
-
-**QNH:** ${json.Translations.Altimeter}
-
-**Remarks:** ${json.Remarks}`)
-            .addField('Time of Report', `${json.Meta.Timestamp}`, true)
+            .addField('Raw Report – ', json.RawReport, true)
+            .addField('Readable – ', json.Speech, true)
             .setFooter(`This is not a source for official weather briefing. Please obtain a weather briefing from the appropriate agency.`);
         message.channel.stopTyping(true);
         return message.channel.send(METAREmbed);
@@ -480,16 +482,26 @@ ${json.RawReport}
     // }
 
     // WIP ESTT command
-    // if (cmd == `${prefix}estt`) {
-    //     console.log(`${message.author.tag} check ESTT`);
-    //     const ESTTURL = 'https://data.soderslattsfk.se/estt-weather/ww4.php';
-    //     let ESTTResponse = await fetch(ESTTURL);
-    //     let ESTTHTMLResponse = await ESTTResponse.text()
-    //     const $ = cheerio.load(ESTTHTMLResponse);
-    //     let ESTTImage = $('img')[0].src;
-    //     console.log(ESTTImage)
-    //     message.channel.sendFile(ESTTImage, 'Cool_Image.png');
-    // }
+    if (cmd == `${prefix}estt`) {
+        console.log(`${message.author.tag} checked ESTT`);
+        message.channel.startTyping(true);
+        const ESTTURL = 'https://data.soderslattsfk.se/estt-weather/ww4.php';
+        let ESTTResponse = await fetch(ESTTURL);
+        let ESTTHTMLResponse = await ESTTResponse.text()
+        const $ = cheerio.load(ESTTHTMLResponse);
+        // message.channel.send(ESTTHTMLResponse);
+        let ESTTImage = `https://data.soderslattsfk.se/estt-weather/${$('img')[0].attribs.src}`;
+        let ESTTActiveRunway = $('h1')[0].children[0].data;
+        let ESTTText = $.text().replace('\n', "");
+        let esttEmbed = new Discord.RichEmbed()
+            .setTitle(ESTTActiveRunway)
+            .setAuthor('Söderslätts Flight Culb', )
+            .setImage(ESTTImage)
+            .setDescription(ESTTText)
+            .setColor([99, 154, 210]);
+        message.channel.stopTyping(true);
+        message.channel.send(esttEmbed);
+    }
 });
 
 // Login key for Dun_Dunv2
