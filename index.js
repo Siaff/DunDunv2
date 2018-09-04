@@ -154,7 +154,7 @@ bot.on('message', async message => {
 //             .addField('Time of Report', `${json.Meta.Timestamp}`, true)
 //             .setFooter(`This is not a source for official weather briefing. Please obtain a weather briefing from the appropriate agency.`);
         let METAREmbed = new Discord.RichEmbed()
-            .setTitle(`${json.Info.City}, ${json.Info.Name} – ${json.Info.ICAO}`)
+            .setTitle(`${json.Info.City}, ${json.Info.Name} – ${argz}`)
             .setColor([93, 233, 235])
             .addField('Raw Report – ', json.RawReport, true)
             .addField('Readable – ', json.Speech, true)
@@ -495,7 +495,7 @@ bot.on('message', async message => {
         let ESTTText = $.text().replace('\n', "");
         let esttEmbed = new Discord.RichEmbed()
             .setTitle(ESTTActiveRunway)
-            .setAuthor('Söderslätts Flight Culb', )
+            .setAuthor('Söderslätts Flight Club', )
             .setImage(ESTTImage)
             .setDescription(ESTTText)
             .setColor([99, 154, 210]);
@@ -505,4 +505,4 @@ bot.on('message', async message => {
 });
 
 // Login key for Dun_Dunv2
-bot.login(dunDunToken);
+bot.login(dunDunv2Token);
