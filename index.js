@@ -19,7 +19,6 @@ const prefix = '+';
 let time = moment.utc();
 let timeform = time.format('YYYY-MM-DD HH:mm:ss Z');
 let timeform2 = time.format('HH:mm:ss'); // Not used atm.
-let timeform3 = time.format('DD/MM HH:mm');
 
     // Console loggers for when the bot is connecting.
     console.log('– - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
@@ -437,12 +436,37 @@ bot.on('message', async message => {
     // UTC Command
     if (cmd == `${prefix}utc`) {
         console.log(`UTC given to ${message.author.tag}`);
+        time = moment.utc();
+        let timeform3 = time.format('DD/MM HH:mm');
         let utcEmbed = new Discord.RichEmbed()
             .setTitle('UTC Time')
             .setDescription(`${timeform3} UTC`)
             .setColor([101, 244, 66])
         message.channel.send(utcEmbed);
     }
+
+        // ESTT command
+        if (cmd == `${prefix}estt`) {
+            console.log(`${message.author.tag} checked ESTT`);
+            message.channel.startTyping(true);
+            const ESTTURL = 'https://data.soderslattsfk.se/estt-weather/ww4.php';
+            let ESTTResponse = await fetch(ESTTURL);
+            let ESTTHTMLResponse = await ESTTResponse.text()
+            const $ = cheerio.load(ESTTHTMLResponse);
+            // message.channel.send(ESTTHTMLResponse);
+            let ESTTImage = `https://data.soderslattsfk.se/estt-weather/${$('img')[0].attribs.src}`;
+            let ESTTActiveRunway = $('h1')[0].children[0].data;
+            let ESTTText = $.text().replace('\n', "");
+            let esttEmbed = new Discord.RichEmbed()
+                .setTitle(ESTTActiveRunway)
+                .setAuthor('Söderslätts Flight Club', )
+                .setImage(ESTTImage)
+                .setDescription(ESTTText)
+                .setColor([99, 154, 210]);
+            message.channel.stopTyping(true);
+            message.channel.send(esttEmbed);
+        }
+    });
 
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -466,6 +490,42 @@ bot.on('message', async message => {
     //     })
     // }
 
+    // WIP weather / cloud questions.
+    // if (cmd == `${prefix}clouds`) {
+    //     console.log('Sending a picture of a cloud to ' + message.author.tag);
+    //     message.channel.startTyping(true);
+    //     const cbCloud = [
+    //         'https://i.stack.imgur.com/O2s15.jpg',
+    //         'https://i.imgur.com/n6TAESC.jpg',
+    //         'https://i.imgur.com/pqolbGd.jpg',
+    //         'https://i.imgur.com/KXkB7De.jpg',
+    //         'https://i.imgur.com/zsN8Gip.jpg',
+    //     ];
+    //     let rand = Math.floor(Math.random * 2) + 1;
+    //     if (rand === 1) {
+    //         message.channel.send('Dab');
+    //         message.channel.stopTyping(true);
+    //     }
+    //     else if (rand === 2) {
+    //         // let randu = Math.floor(Math.random * cbCloud.length) + 1;
+    //         console.log(randu);
+    //         message.channel.sendFile(cdCloud[randu], 'cloud.jpg');
+    //         message.channel.stopTyping(true);
+    //     }
+    // }
+
+    // WIP cloud welp
+    // if (cmd == `${prefix}cloudu`) {
+    //     console.log('Cloudu welp.');
+    //     message.channel.sendFile('https://i.imgur.com/JfpJdLl.jpg', 'Hot_Cloud_Welp.jpg');
+    // }
+
+    // // WIP dbl
+    // if (cmd == `${prefix}dbl`) {
+    //     console.log('Sending dbl');
+    //     message.channel.send('https://discordbots.org/bot/436406106013827072');
+    // }
+
     // // Comment out this! // Ty for the note.
     // if (cmd == `${prefix}leave`) {
     //     if (!message.author.id === '275701228422299648') return message.channel.send('No...');
@@ -481,28 +541,19 @@ bot.on('message', async message => {
     //     message.channel.send('https://discordapp.com/invite/wwMP5RU');
     // }
 
-    // WIP ESTT command
-    if (cmd == `${prefix}estt`) {
-        console.log(`${message.author.tag} checked ESTT`);
-        message.channel.startTyping(true);
-        const ESTTURL = 'https://data.soderslattsfk.se/estt-weather/ww4.php';
-        let ESTTResponse = await fetch(ESTTURL);
-        let ESTTHTMLResponse = await ESTTResponse.text()
-        const $ = cheerio.load(ESTTHTMLResponse);
-        // message.channel.send(ESTTHTMLResponse);
-        let ESTTImage = `https://data.soderslattsfk.se/estt-weather/${$('img')[0].attribs.src}`;
-        let ESTTActiveRunway = $('h1')[0].children[0].data;
-        let ESTTText = $.text().replace('\n', "");
-        let esttEmbed = new Discord.RichEmbed()
-            .setTitle(ESTTActiveRunway)
-            .setAuthor('Söderslätts Flight Club', )
-            .setImage(ESTTImage)
-            .setDescription(ESTTText)
-            .setColor([99, 154, 210]);
-        message.channel.stopTyping(true);
-        message.channel.send(esttEmbed);
-    }
-});
+    // WIP Servers Command (Shows what servers the bot is in)
+    // if (cmd == `${prefix}servers`) {
+    //     if (!message.author.id === '275701228422299648') return message.channel.send('Takes too much on the bot. (Ask Siaff#3293)');
+    //     console.log(`${message.author.tag} looked at all the servers DunDun is in.`);
+    //     message.channel.startTyping(true);
+    //     bot.guilds.forEach(guild => {
+    //         let string = '';
+    //         string += '***Server Name:*** ' + guild.name + '\n' + '***Server ID:***` ' + guild.id + ' ` ' + '\n\n';
+    //         message.channel.send(string);
+    //     })
+    //     message.channel.stopTyping(true);
+    //     message.channel.send('Done!');
+    // }
 
 // Login key for Dun_Dunv2
 bot.login(dunDunv2Token);
