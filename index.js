@@ -10,6 +10,9 @@ const cheerio = require('cheerio');
 const bot = new Discord.Client();
 
 // Tokens
+let dblToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNjQwNjEwNjAxMzgyNzA3MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTMwNjI1Nzg1fQ.b3jqwLoTxGjdgBk6LNjl2Y_MQSZixKzfVY9rsFuCrN0';
+let dunDunToken = 'NDE2NjkzNzMwNDkwMzE4ODQ4.DmaxjA._lCw3URQzfWqUUkV8tcv6b2p-O8';
+let dunDunv2Token = 'NDM2NDA2MTA2MDEzODI3MDcy.DmUlXg.YoMGAN2fdvsPm7_4cc-eP1iAgG0';
 // Removed
 
 // Prefix
